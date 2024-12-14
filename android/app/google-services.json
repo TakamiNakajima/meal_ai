@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "685876588535",
+    "project_id": "meal-ai-5001c",
+    "storage_bucket": "meal-ai-5001c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685876588535:android:d5272ebd200b70045088f2",
+        "android_client_info": {
+          "package_name": "com.rebbit.mealAiApp.meal_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSt5CqkUYM0nJiwUp2wF3BNiYp-UHH9YM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

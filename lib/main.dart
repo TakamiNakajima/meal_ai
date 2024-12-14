@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:meal_ai/firebase_options.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/screen_util.dart';
 import 'package:meal_ai/view/shopping_page.dart';
@@ -6,7 +9,11 @@ import 'package:meal_ai/view/home_page.dart';
 import 'package:meal_ai/view/menu_page.dart';
 import 'package:meal_ai/view/setting_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const MyApp());
 }
 

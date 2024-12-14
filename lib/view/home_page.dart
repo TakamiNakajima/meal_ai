@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/screen_util.dart';
@@ -16,6 +17,17 @@ class _ShoppingPageState extends State<ShoppingPage> {
     super.initState();
   }
 
+  /// `recipe`コレクションにデータを保存する関数
+  Future<void> addRecipe(Map<String, dynamic> data) async {
+    try {
+      final collectionRef = FirebaseFirestore.instance.collection('recipes');
+      await collectionRef.add(data);
+    } catch (e) {
+      print('Failed to add recipe: $e');
+      rethrow;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +37,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
         children: [
           Center(
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
