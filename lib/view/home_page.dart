@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meal_ai/model/recipe.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/screen_util.dart';
+import 'package:meal_ai/view/add_recipe_page.dart';
 
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({super.key});
@@ -17,21 +18,18 @@ class _ShoppingPageState extends State<ShoppingPage> {
     super.initState();
   }
 
-  /// `recipes`コレクションにデータを保存する関数
-  Future<void> addRecipe(Recipe recipe) async {
-    try {
-      final collectionRef = FirebaseFirestore.instance.collection('recipes');
-      await collectionRef.add(Recipe.toMap(recipe));
-    } catch (e) {
-      print('Failed to add recipe: $e');
-      rethrow;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgWhite,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddRecipePage()),
+          );
+        },
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

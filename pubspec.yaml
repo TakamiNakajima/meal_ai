@@ -38,6 +38,7 @@ dependencies:
   dotted_border: ^2.1.0
   firebase_core: ^2.24.2
   cloud_firestore:
+  image_picker:
 
 dev_dependencies:
   flutter_test:

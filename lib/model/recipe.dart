@@ -31,7 +31,7 @@ class Recipe {
   late final List<String> steps;
 
   /// アレルギー類
-  late final List<String> allergens;
+  late final List<String> allergies;
 
   /// タグ
   late final List<String> tags;
@@ -46,7 +46,7 @@ class Recipe {
     required this.ingredients,
     required this.mealType,
     required this.steps,
-    required this.allergens,
+    required this.allergies,
     required this.tags,
   });
 
@@ -62,7 +62,7 @@ class Recipe {
       ingredients: (map['ingredients']).map((e) => Ingredient.fromMap(e)).toList(),
       mealType: MealType.values.firstWhere((e) => e.toString() == map['mealType']),
       steps: List<String>.from(map['steps'] as List),
-      allergens: List<String>.from(map['allergens'] as List),
+      allergies: List<String>.from(map['allergies'] as List),
       tags: List<String>.from(map['tags'] as List),
     );
   }
@@ -77,9 +77,9 @@ class Recipe {
       'cookingTime': recipe.cookingTime,
       'calorie': recipe.calorie,
       'ingredients': recipe.ingredients.map((e) => Ingredient.toMap(e)).toList(),
-      'mealType': recipe.mealType.toString(),
+      'mealType': recipe.mealType.toLabel(),
       'steps': recipe.steps,
-      'allergens': recipe.allergens,
+      'allergies': recipe.allergies,
       'tags': recipe.tags,
     };
   }
