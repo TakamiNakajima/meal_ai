@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meal_ai/firebase_options.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/screen_util.dart';
@@ -87,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             currentIndex: _currentIndex,
             onTap: (index) {
+              HapticFeedback.vibrate();
               setState(() {
                 _currentIndex = index;
               });

@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:meal_ai/model/recipe.dart';
+import 'package:flutter/services.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/screen_util.dart';
 import 'package:meal_ai/view/add_recipe_page.dart';
@@ -36,13 +35,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
           Center(
             child: GestureDetector(
               onTap: () async {
+                HapticFeedback.vibrate();
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(25.0),
                     ),
                   ),
                   builder: (BuildContext context) {
