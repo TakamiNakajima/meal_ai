@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: AppColor.darkGreen,
+        primaryColor: AppColor.mainColor,
         useMaterial3: false,
       ),
       home: const MyHomePage(),
@@ -70,24 +70,36 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           BottomNavigationBar(
             elevation: 0,
-            fixedColor: AppColor.darkGreen,
+            fixedColor: AppColor.mainColor,
             backgroundColor: AppColor.bgWhite,
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
+                icon: Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Icon(Icons.home_rounded),
+                ),
                 label: 'ホーム',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_rounded),
+                icon: Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Icon(Icons.shopping_cart_rounded),
+                ),
                 label: '買い物',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.event_note_rounded),
+                icon: Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Icon(Icons.event_note_rounded),
+                ),
                 label: '献立表',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Padding(
+                  padding: EdgeInsets.only(top: 12),
+                  child: Icon(Icons.settings),
+                ),
                 label: '設定',
               ),
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_ai/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 enum PageState {
@@ -7,9 +8,6 @@ enum PageState {
 
   /// 終了日選択中
   end,
-
-  /// 確認中
-  confirm,
 
   /// 献立作成中
   generate,
@@ -31,8 +29,24 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: Container(),
+        backgroundColor: AppColor.bgWhite,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.close,
+              color: AppColor.mainColor,
+            ),
+          )
+        ],
+      ),
       body: SafeArea(
-        child: pageState == PageState.start || pageState == PageState.end || pageState == PageState.confirm
+        child: (pageState == PageState.start || pageState == PageState.end)
 
             /// 期間選択画面
             ? Stack(
@@ -48,6 +62,16 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                           headerStyle: const HeaderStyle(
                             formatButtonVisible: false,
                             titleCentered: true,
+                            leftChevronIcon: Icon(
+                              size: 30,
+                              Icons.chevron_left_rounded,
+                              color: AppColor.mainColor,
+                            ),
+                            rightChevronIcon: Icon(
+                              size: 30,
+                              Icons.chevron_right_rounded,
+                              color: AppColor.mainColor,
+                            ),
                           ),
                           firstDay: DateTime.utc(2000, 1, 1),
                           lastDay: DateTime.utc(2030, 12, 31),
@@ -64,9 +88,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
 
                               if (pageState == PageState.start) {
                                 pageState = PageState.end;
-                              } else if (pageState == PageState.end) {
-                                pageState = PageState.confirm;
-                              }
+                              } else if (pageState == PageState.end) {}
                             });
 
                             Future.delayed(const Duration(milliseconds: 300), () {
@@ -79,14 +101,14 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                             todayBuilder: (context, todayDay, focusDay) => Center(
                               child: Text(
                                 todayDay.day.toString(),
-                                style: const TextStyle(color: Colors.red, fontSize: 16),
+                                style: const TextStyle(color: AppColor.mainColor, fontSize: 16),
                               ),
                             ),
                             rangeStartBuilder: (context, day, focusedDay) {
                               return Center(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.red.withOpacity(0.7),
+                                    color: AppColor.mainColor.withOpacity(0.7),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
@@ -105,7 +127,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                               return Center(
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Colors.red.withOpacity(0.7),
+                                    color: AppColor.mainColor.withOpacity(0.7),
                                     shape: BoxShape.circle,
                                   ),
                                   child: Center(
@@ -125,7 +147,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                                 if (day.isAfter(rangeStartDay!) && day.isBefore(rangeEndDay!)) {
                                   return Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.red.withOpacity(0.3),
+                                      color: AppColor.mainColor.withOpacity(0.3),
                                       shape: BoxShape.circle,
                                     ),
                                     child: Center(
@@ -163,14 +185,27 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                           ),
                         ),
                       ),
-                      if (pageState == PageState.confirm)
-                        ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              pageState = PageState.generate;
-                            });
-                          },
-                          child: const Text("作成"),
+
+                      const SizedBox(height: 40),
+
+                      if (rangeStartDay != null && rangeEndDay != null)
+                        SizedBox(
+                          width: 200,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                pageState = PageState.generate;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColor.mainColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                            ),
+                            child: const Text("作成"),
+                          ),
                         )
                     ],
                   ),
@@ -180,7 +215,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                     visible: isWhiteOut,
                     child: AnimatedOpacity(
                       opacity: isWhiteOut ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 1000),
                       child: Container(
                         color: Colors.white,
                       ),
@@ -190,7 +225,17 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
               )
 
             /// 献立生成画面
-            : Container(),
+            : SingleChildScrollView(
+                child: Center(
+                child: Column(
+                  children: [
+                    const Text("開始日"),
+                    Text(rangeStartDay.toString()),
+                    const Text("終了日"),
+                    Text(rangeEndDay.toString()),
+                  ],
+                ),
+              )),
       ),
     );
   }

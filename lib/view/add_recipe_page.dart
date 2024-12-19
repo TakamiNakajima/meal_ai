@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meal_ai/model/ingredient.dart';
 import 'package:meal_ai/model/recipe.dart';
 import 'package:meal_ai/repository/recipe_repository.dart';
+import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/enum/meal_type.dart';
 import 'package:meal_ai/util/enum/unit_type.dart';
 
@@ -122,8 +123,22 @@ class _AddRecipePageState extends State<AddRecipePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.bgWhite,
       appBar: AppBar(
-        title: const Text('レシピを追加'),
+        elevation: 0,
+        backgroundColor: AppColor.bgWhite,
+        leading: Container(),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.close,
+              color: AppColor.mainColor,
+            ),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
@@ -135,8 +150,8 @@ class _AddRecipePageState extends State<AddRecipePage> {
               GestureDetector(
                 onTap: _pickImage,
                 child: Container(
-                  width: 200,
-                  height: 200,
+                  width: 160,
+                  height: 160,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),
@@ -150,26 +165,10 @@ class _AddRecipePageState extends State<AddRecipePage> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              TextFormField(
-                decoration: const InputDecoration(labelText: '料理名'),
-                onSaved: (value) => recipeTitle = value!,
-                validator: (value) => value == null || value.isEmpty ? 'タイトルを入力してください' : null,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: '説明文'),
-                maxLines: 1,
-                onSaved: (value) => recipeDescription = value!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: '調理時間（分）'),
-                keyboardType: TextInputType.number,
-                onSaved: (value) => cookingTime = int.tryParse(value!) ?? 0,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'カロリー（kcal）'),
-                keyboardType: TextInputType.number,
-                onSaved: (value) => calories = int.tryParse(value!) ?? 0,
-              ),
+              textInputPart("料理名", recipeTitle),
+              textInputPart("説明文", recipeDescription),
+              numberInputPart('調理時間（分）', cookingTime),
+              numberInputPart('カロリー（kcal）', calories),
               const SizedBox(height: 16.0),
               DropdownButton<MealType>(
                 value: selectedMealType,
@@ -287,6 +286,59 @@ class _AddRecipePageState extends State<AddRecipePage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget textInputPart(String title, String text) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(title),
+        SizedBox(
+          height: 56,
+          width: 160,
+          child: TextFormField(
+              onChanged: (value) {
+                text = value;
+              },
+              validator: (value) => value == null || value.isEmpty ? '$titleを入力してください' : null,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget numberInputPart(String title, int number) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(title),
+        SizedBox(
+          height: 56,
+          width: 160,
+          child: TextFormField(
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                number = int.tryParse(value) ?? 0;
+              },
+              validator: (value) => value == null || value.isEmpty ? '$titleを入力してください' : null,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              )),
+        ),
+      ],
     );
   }
 }

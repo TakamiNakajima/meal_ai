@@ -23,12 +23,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: AppColor.bgWhite,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColor.mainColor,
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const AddRecipePage()),
           );
         },
+        child: const Icon(Icons.add),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   gradient: const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [AppColor.lightGreen, AppColor.darkGreen],
+                    colors: [AppColor.subColor, AppColor.mainColor],
                   ),
                   boxShadow: [
                     BoxShadow(
