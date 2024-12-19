@@ -15,7 +15,7 @@ class _MenuPageState extends State<MenuPage> {
     return const Scaffold(
       backgroundColor: AppColor.bgWhite,
       body: Center(
-        child: Text("レポート"),
+        child: Text("献立"),
       ),
     );
   }

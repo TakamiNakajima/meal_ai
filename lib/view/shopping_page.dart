@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../style/color.dart';
 
-class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
+class ShoppingPage extends StatefulWidget {
+  const ShoppingPage({super.key});
 
   @override
-  State<CalendarPage> createState() => _CalendarPageState();
+  State<ShoppingPage> createState() => _ShoppingPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> {
+class _ShoppingPageState extends State<ShoppingPage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColor.bgWhite,
       body: Center(
-        child: Text("カレンダー"),
+        child: Text("買い物"),
       ),
     );
   }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meal_ai/style/color.dart';
-import 'package:meal_ai/util/screen_util.dart';
+import 'package:meal_ai/util/transition_util.dart';
 import 'package:meal_ai/view/add_recipe_page.dart';
+import 'package:meal_ai/view/menu_creation_page.dart';
 
-class ShoppingPage extends StatefulWidget {
-  const ShoppingPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<ShoppingPage> createState() => _ShoppingPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _ShoppingPageState extends State<ShoppingPage> {
+class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
@@ -36,26 +37,10 @@ class _ShoppingPageState extends State<ShoppingPage> {
             child: GestureDetector(
               onTap: () async {
                 HapticFeedback.lightImpact();
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(25.0),
-                    ),
+                Navigator.of(context).push(
+                  TransitionUtil.whiteOut(
+                    const MenuCreationPage(),
                   ),
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: ScreenUtil.height * 0.9,
-                      color: AppColor.bgWhite,
-                      child: const Center(
-                        child: Text(
-                          "ここにボトムシートの内容を表示",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
-                      ),
-                    );
-                  },
                 );
               },
               child: Container(
