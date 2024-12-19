@@ -72,9 +72,9 @@ enum UnitType {
       case UnitType.cluster:
         return "房";
       case UnitType.gram:
-        return "グラム";
+        return "g";
       case UnitType.kilogram:
-        return "キログラム";
+        return "kg";
       case UnitType.cup:
         return "カップ";
       case UnitType.tablespoon:
@@ -82,9 +82,9 @@ enum UnitType {
       case UnitType.teaspoon:
         return "小さじ";
       case UnitType.milliliter:
-        return "ミリリットル";
+        return "mL";
       case UnitType.liter:
-        return "リットル";
+        return "L";
       case UnitType.piece:
         return "片";
       case UnitType.pinch:

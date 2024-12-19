@@ -1,3 +1,4 @@
+import 'package:meal_ai/util/enum/sale_area.dart';
 import 'package:meal_ai/util/enum/unit_type.dart';
 
 /// 材料データ
@@ -12,7 +13,7 @@ class Ingredient {
   late final UnitType unit;
 
   /// 売り場
-  late final String saleArea;
+  late final SaleArea saleArea;
 
   Ingredient({
     required this.name,
@@ -26,7 +27,7 @@ class Ingredient {
       name: map['name'] as String,
       quantity: map['quantity'] as int,
       unit: UnitType.toUnitType(map['unit'] as String),
-      saleArea: map['saleArea'] as String,
+      saleArea: SaleArea.toSaleArea(map['saleArea'] as String),
     );
   }
 
@@ -35,7 +36,7 @@ class Ingredient {
       'name': ingredient.name,
       'quantity': ingredient.quantity,
       'unit': ingredient.unit.toLabel(),
-      'saleArea': ingredient.saleArea,
+      'saleArea': ingredient.saleArea.toLabel(),
     };
   }
 }

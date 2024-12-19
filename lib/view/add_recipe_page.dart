@@ -6,7 +6,9 @@ import 'package:meal_ai/model/ingredient.dart';
 import 'package:meal_ai/model/recipe.dart';
 import 'package:meal_ai/repository/recipe_repository.dart';
 import 'package:meal_ai/style/color.dart';
+import 'package:meal_ai/util/allergy_util.dart';
 import 'package:meal_ai/util/enum/meal_type.dart';
+import 'package:meal_ai/util/enum/sale_area.dart';
 import 'package:meal_ai/util/enum/unit_type.dart';
 
 class AddRecipePage extends StatefulWidget {
@@ -35,6 +37,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
   List<TextEditingController> saleAreaControllers = [];
   List<TextEditingController> stepControllers = [];
   List<UnitType?> unitSelections = [];
+  List<SaleArea?> saleAreaSelections = [];
 
   final ImagePicker _picker = ImagePicker();
 
@@ -49,11 +52,12 @@ class _AddRecipePageState extends State<AddRecipePage> {
 
   void _addIngredient() {
     setState(() {
-      ingredients.add(Ingredient(name: '', quantity: 0, unit: UnitType.gram, saleArea: ''));
+      ingredients.add(Ingredient(name: '', quantity: 0, unit: UnitType.gram, saleArea: SaleArea.vegetable));
       nameControllers.add(TextEditingController());
       quantityControllers.add(TextEditingController());
       saleAreaControllers.add(TextEditingController());
-      unitSelections.add(null); // Initial value is null
+      unitSelections.add(null);
+      saleAreaSelections.add(null);
     });
   }
 
@@ -67,6 +71,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
       quantityControllers.removeAt(index);
       saleAreaControllers.removeAt(index);
       unitSelections.removeAt(index);
+      saleAreaSelections.removeAt(index);
     });
   }
 
@@ -94,13 +99,17 @@ class _AddRecipePageState extends State<AddRecipePage> {
           name: nameControllers[i].text,
           quantity: int.tryParse(quantityControllers[i].text) ?? 0,
           unit: unitSelections[i]!, // Enum value to string
-          saleArea: saleAreaControllers[i].text,
+          saleArea: saleAreaSelections[i]!,
         );
       }
 
       for (int i = 0; i < steps.length; i++) {
         steps[i] = stepControllers[i].text;
       }
+
+      /// 画像保存処理を追加
+      ///
+      ///
 
       final recipe = Recipe(
         id: "id",
@@ -125,7 +134,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
     return Scaffold(
       backgroundColor: AppColor.bgWhite,
       appBar: AppBar(
-        elevation: 0,
         backgroundColor: AppColor.bgWhite,
         leading: Container(),
         actions: [
@@ -158,10 +166,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   ),
                   child: imagePath == null
                       ? const Center(child: Text('画像を選択'))
-                      : Image.file(
-                          File(imagePath!),
-                          fit: BoxFit.cover,
-                        ),
+                      : Image.file(File(imagePath!), fit: BoxFit.cover),
                 ),
               ),
               const SizedBox(height: 16.0),
@@ -169,122 +174,241 @@ class _AddRecipePageState extends State<AddRecipePage> {
               textInputPart("説明文", recipeDescription),
               numberInputPart('調理時間（分）', cookingTime),
               numberInputPart('カロリー（kcal）', calories),
-              const SizedBox(height: 16.0),
-              DropdownButton<MealType>(
-                value: selectedMealType,
-                hint: const Text('料理タイプを選択'),
-                items: MealType.values.map((type) {
-                  return DropdownMenuItem<MealType>(
-                    value: type,
-                    child: Text(type.toLabel()),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedMealType = value!;
-                  });
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("料理タイプ"),
+                  DropdownButton<MealType>(
+                    value: selectedMealType,
+                    items: MealType.values.map((type) {
+                      return DropdownMenuItem<MealType>(
+                        value: type,
+                        child: Text(type.toLabel()),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedMealType = value!;
+                      });
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               const Text('材料リスト', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 8),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: ingredients.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    margin: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: nameControllers[index],
-                            decoration: const InputDecoration(labelText: '材料名'),
-                          ),
-                          TextFormField(
-                            controller: quantityControllers[index],
-                            decoration: const InputDecoration(labelText: '量'),
-                            keyboardType: TextInputType.number,
-                          ),
-                          DropdownButton<UnitType>(
-                            value: unitSelections[index],
-                            hint: const Text('単位を選択'),
-                            items: UnitType.values.map((unit) {
-                              return DropdownMenuItem<UnitType>(
-                                value: unit,
-                                child: Text(unit.toLabel()),
-                              );
-                            }).toList(),
-                            onChanged: (unit) {
-                              setState(() {
-                                unitSelections[index] = unit;
-                              });
-                            },
-                          ),
-                          TextFormField(
-                            controller: saleAreaControllers[index],
-                            decoration: const InputDecoration(labelText: '売り場'),
-                          ),
-                          TextButton(
-                            onPressed: () => _removeIngredient(index),
-                            child: const Text('削除'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return ingredientsCard(index);
                 },
               ),
               TextButton(
                 onPressed: _addIngredient,
-                child: const Text('材料を追加'),
+                child: const Text(
+                  '+ 材料を追加',
+                  style: TextStyle(color: AppColor.mainColor),
+                ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
               const Text('調理手順', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: steps.length,
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: stepControllers[index],
-                          decoration: InputDecoration(labelText: 'ステップ ${index + 1}'),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () => _removeStep(index),
-                        icon: const Icon(Icons.delete),
-                      ),
-                    ],
-                  );
+                  return stepCard(index);
                 },
               ),
               TextButton(
                 onPressed: _addStep,
-                child: const Text('手順を追加'),
+                child: const Text(
+                  '+ 手順を追加',
+                  style: TextStyle(color: AppColor.mainColor),
+                ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 16),
+              const Text('アレルギー', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  spacing: 8.0,
+                  runSpacing: 4.0,
+                  alignment: WrapAlignment.center,
+                  children: AllergyUtil.allergyList.map((allergy) {
+                    final isSelected = allergies.contains(allergy);
+                    return ChoiceChip(
+                      label: Text(
+                        allergy,
+                        style: TextStyle(color: isSelected ? AppColor.white : AppColor.darkGray),
+                      ),
+                      selected: isSelected,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          if (selected) {
+                            allergies.add(allergy);
+                          } else {
+                            allergies.remove(allergy);
+                          }
+                        });
+                      },
+                      selectedColor: AppColor.mainColor,
+                      backgroundColor: AppColor.bgWhite,
+                      shape: StadiumBorder(
+                        side: isSelected
+                            ? BorderSide.none
+                            : const BorderSide(color: AppColor.lightGray, width: 1),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text('タグ（カンマ区切り）', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'アレルギーリスト（カンマ区切り）'),
-                onSaved: (value) => allergies = value?.split(',') ?? [],
+                  onSaved: (value) => tags = value?.split(',') ?? [],
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                  )),
+              const SizedBox(height: 40.0),
+              SizedBox(
+                width: 200,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: _saveRecipe,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: const Text("保存"),
+                ),
               ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'タグ（カンマ区切り）'),
-                onSaved: (value) => tags = value?.split(',') ?? [],
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: _saveRecipe,
-                child: const Text('保存'),
-              ),
+              const SizedBox(height: 40.0),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget stepCard(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: TextFormField(
+              controller: stepControllers[index],
+              decoration: InputDecoration(
+                hintText: 'ステップ ${index + 1}',
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: () => _removeStep(index),
+            icon: const Icon(Icons.delete),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget ingredientsCard(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 100,
+            child: TextFormField(
+              controller: nameControllers[index],
+              decoration: InputDecoration(
+                hintText: '材料名',
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 50,
+            child: TextFormField(
+              controller: quantityControllers[index],
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: '量',
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 70,
+            child: DropdownButton<UnitType>(
+              value: unitSelections[index],
+              hint: const Text('単位'),
+              items: UnitType.values.map((unit) {
+                return DropdownMenuItem<UnitType>(
+                  value: unit,
+                  child: Text(unit.toLabel()),
+                );
+              }).toList(),
+              onChanged: (unit) {
+                setState(() {
+                  unitSelections[index] = unit;
+                });
+              },
+            ),
+          ),
+          SizedBox(
+            width: 80,
+            child: DropdownButton<SaleArea>(
+              value: saleAreaSelections[index],
+              hint: const Text('売り場'),
+              items: SaleArea.values.map((saleArea) {
+                return DropdownMenuItem<SaleArea>(
+                  value: saleArea,
+                  child: Text(saleArea.toLabel()),
+                );
+              }).toList(),
+              onChanged: (saleArea) {
+                setState(() {
+                  saleAreaSelections[index] = saleArea;
+                });
+              },
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              _removeIngredient(index);
+            },
+            child: const Icon(Icons.delete),
+          ),
+        ],
       ),
     );
   }

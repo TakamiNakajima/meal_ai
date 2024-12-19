@@ -21,7 +21,7 @@ enum MealType {
       case MealType.stapleFood:
         return "主食";
       case MealType.soup:
-        return "汁";
+        return "汁物";
     }
   }
 }
