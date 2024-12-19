@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
             currentIndex: _currentIndex,
             onTap: (index) {
-              HapticFeedback.vibrate();
+              HapticFeedback.lightImpact();
               setState(() {
                 _currentIndex = index;
               });

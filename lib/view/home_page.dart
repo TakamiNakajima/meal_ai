@@ -35,7 +35,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
           Center(
             child: GestureDetector(
               onTap: () async {
-                HapticFeedback.vibrate();
+                HapticFeedback.lightImpact();
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
