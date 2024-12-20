@@ -25,9 +25,11 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColor.mainColor,
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddRecipePage()),
+          HapticFeedback.lightImpact();
+          Navigator.of(context).push(
+            TransitionUtil.whiteOut(
+              const AddRecipePage(),
+            ),
           );
         },
         child: const Icon(Icons.add),

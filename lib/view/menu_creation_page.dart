@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -24,7 +25,6 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
   DateTime? rangeStartDay;
   DateTime? rangeEndDay;
   PageState pageState = PageState.start;
-  bool isWhiteOut = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
       appBar: AppBar(
         elevation: 0,
         leading: Container(),
-        backgroundColor: AppColor.bgWhite,
+        backgroundColor: Colors.transparent,
         actions: [
           IconButton(
             onPressed: () {
@@ -81,20 +81,14 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                           rangeSelectionMode: RangeSelectionMode.enforced,
                           locale: 'ja_JP',
                           onRangeSelected: (start, end, focusedDay) {
+                            HapticFeedback.lightImpact();
                             setState(() {
                               rangeStartDay = start;
                               rangeEndDay = end;
-                              isWhiteOut = true;
 
                               if (pageState == PageState.start) {
                                 pageState = PageState.end;
                               } else if (pageState == PageState.end) {}
-                            });
-
-                            Future.delayed(const Duration(milliseconds: 300), () {
-                              setState(() {
-                                isWhiteOut = false;
-                              });
                             });
                           },
                           calendarBuilders: CalendarBuilders(
@@ -185,15 +179,14 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 40),
-
                       if (rangeStartDay != null && rangeEndDay != null)
                         SizedBox(
                           width: 200,
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
+                              HapticFeedback.lightImpact();
                               setState(() {
                                 pageState = PageState.generate;
                               });
@@ -209,18 +202,6 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
                         )
                     ],
                   ),
-
-                  // 白くするオーバーレイ
-                  Visibility(
-                    visible: isWhiteOut,
-                    child: AnimatedOpacity(
-                      opacity: isWhiteOut ? 1.0 : 0.0,
-                      duration: const Duration(milliseconds: 1000),
-                      child: Container(
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
                 ],
               )
 

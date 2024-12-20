@@ -5,11 +5,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:meal_ai/model/ingredient.dart';
 import 'package:meal_ai/model/recipe.dart';
 import 'package:meal_ai/repository/recipe_repository.dart';
+import 'package:meal_ai/service/storage_service.dart';
 import 'package:meal_ai/style/color.dart';
 import 'package:meal_ai/util/allergy_util.dart';
 import 'package:meal_ai/util/enum/meal_type.dart';
 import 'package:meal_ai/util/enum/sale_area.dart';
 import 'package:meal_ai/util/enum/unit_type.dart';
+import 'package:uuid/uuid.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({super.key});
@@ -107,15 +109,19 @@ class _AddRecipePageState extends State<AddRecipePage> {
         steps[i] = stepControllers[i].text;
       }
 
+      if (imagePath == null) return;
+
       /// 画像保存処理を追加
-      ///
-      ///
+      String uuid = const Uuid().v4();
+      final imageUrl = await StorageService.uploadImage(imagePath!, uuid);
+
+      if (imageUrl == null) return;
 
       final recipe = Recipe(
-        id: "id",
+        id: uuid,
         title: recipeTitle,
         description: recipeDescription,
-        imageUrl: "imageUrl",
+        imageUrl: imageUrl,
         cookingTime: cookingTime,
         calorie: calories,
         ingredients: ingredients,
@@ -170,10 +176,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              textInputPart("料理名", recipeTitle),
-              textInputPart("説明文", recipeDescription),
-              numberInputPart('調理時間（分）', cookingTime),
-              numberInputPart('カロリー（kcal）', calories),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -194,9 +196,30 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              titleInputPart("料理名"),
+              descriptionInputPart("説明文"),
+              numberInputPart('調理時間（分）', cookingTime),
+              numberInputPart('カロリー（kcal）', calories),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('検索タグ（,区切り）'),
+                  SizedBox(
+                    width: 160,
+                    child: TextFormField(
+                        onSaved: (value) => tags = value?.split(',') ?? [],
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: const BorderSide(color: Colors.black),
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40.0),
               const Text('材料リスト', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -214,7 +237,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
               ),
               const SizedBox(height: 16),
               const Text('調理手順', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 8),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -267,18 +289,6 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   }).toList(),
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text('タグ（カンマ区切り）', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 16),
-              TextFormField(
-                  onSaved: (value) => tags = value?.split(',') ?? [],
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: const BorderSide(color: Colors.black),
-                    ),
-                  )),
               const SizedBox(height: 40.0),
               SizedBox(
                 width: 200,
@@ -413,7 +423,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
     );
   }
 
-  Widget textInputPart(String title, String text) {
+  Widget titleInputPart(String title) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -424,7 +434,33 @@ class _AddRecipePageState extends State<AddRecipePage> {
           width: 160,
           child: TextFormField(
               onChanged: (value) {
-                text = value;
+                recipeTitle = value;
+              },
+              validator: (value) => value == null || value.isEmpty ? '$titleを入力してください' : null,
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget descriptionInputPart(String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(title),
+        SizedBox(
+          height: 56,
+          width: 160,
+          child: TextFormField(
+              onChanged: (value) {
+                recipeDescription = value;
               },
               validator: (value) => value == null || value.isEmpty ? '$titleを入力してください' : null,
               decoration: InputDecoration(
