@@ -113,7 +113,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
 
       /// 画像保存処理を追加
       String uuid = const Uuid().v4();
-      final imageUrl = await StorageService.uploadImage(imagePath!, uuid);
+      final imageUrl = await StorageService.uploadImage(imagePath: imagePath!, recipeId: uuid);
 
       if (imageUrl == null) return;
 

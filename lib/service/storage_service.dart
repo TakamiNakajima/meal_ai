@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class StorageService {
-  static Future<String?> uploadImage(String imagePath, String uuid) async {
+  static Future<String?> uploadImage({required String imagePath, required String recipeId}) async {
     File image = File(imagePath);
 
     try {
       final storageRef = FirebaseStorage.instance.ref();
-      final fileName = 'recipes/$uuid.png';
+      final fileName = 'images/recipes/$recipeId.png';
       final uploadTask = storageRef.child(fileName).putFile(image);
 
       final snapshot = await uploadTask;
