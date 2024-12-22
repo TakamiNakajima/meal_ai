@@ -50,10 +50,46 @@ enum UnitType {
   /// 適量
   toTaste;
 
-  static UnitType toUnitType(String unitString) {
-    return UnitType.values.firstWhere(
-      (unit) => unit.toString().split('.').last == unitString,
-    );
+  /// Enumの文字列ラベルを`UnitType`に変換
+  static UnitType toUnitType(String label) {
+    switch (label) {
+      case "個":
+        return UnitType.individual;
+      case "本":
+        return UnitType.stalk;
+      case "玉":
+        return UnitType.bulb;
+      case "束":
+        return UnitType.bunch;
+      case "枚":
+        return UnitType.sheet;
+      case "房":
+        return UnitType.cluster;
+      case "g":
+        return UnitType.gram;
+      case "kg":
+        return UnitType.kilogram;
+      case "カップ":
+        return UnitType.cup;
+      case "大さじ":
+        return UnitType.tablespoon;
+      case "小さじ":
+        return UnitType.teaspoon;
+      case "mL":
+        return UnitType.milliliter;
+      case "L":
+        return UnitType.liter;
+      case "片":
+        return UnitType.piece;
+      case "少々":
+        return UnitType.pinch;
+      case "袋":
+        return UnitType.pack;
+      case "適量":
+        return UnitType.toTaste;
+      default:
+        throw ArgumentError("Unsupported UnitType label: $label");
+    }
   }
 
   /// Enumの文字列ラベル

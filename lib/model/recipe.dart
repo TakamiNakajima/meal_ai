@@ -52,19 +52,24 @@ class Recipe {
 
   /// MapからRecipeオブジェクトを生成
   factory Recipe.fromMap(Map<String, dynamic> map) {
-    return Recipe(
+    final recipe = Recipe(
       id: map['id'] as String,
       title: map['title'] as String,
       description: map['description'] as String,
       imageUrl: map['imageUrl'] as String,
       cookingTime: map['cookingTime'] as int,
       calorie: map['calorie'] as int,
-      ingredients: (map['ingredients']).map((e) => Ingredient.fromMap(e)).toList(),
-      mealType: MealType.values.firstWhere((e) => e.toString() == map['mealType']),
+      ingredients: (map['ingredients'] as List<dynamic>)
+          .map((e) => Ingredient.fromMap(e as Map<String, dynamic>))
+          .toList()
+          .cast<Ingredient>(),
+      mealType: MealType.toMealType(map['mealType'] as String),
       steps: List<String>.from(map['steps'] as List),
       allergies: List<String>.from(map['allergies'] as List),
       tags: List<String>.from(map['tags'] as List),
     );
+
+    return recipe;
   }
 
   /// RecipeオブジェクトをMapに変換
