@@ -1,12 +1,14 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class HomeState {
-  final bool isLoading;
+part 'home_state.freezed.dart';
+part 'home_state.g.dart';
 
-  HomeState({this.isLoading = false});
+@freezed
+class HomeState with _$HomeState {
+  const factory HomeState({
+    @Default(false) bool isLoading,
+  }) = _HomeState;
 
-  HomeState copyWith({bool? isLoading}) {
-    return HomeState(
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
+  factory HomeState.fromJson(Map<String, dynamic> json) =>
+      _$HomeStateFromJson(json);
 }
