@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ai/model/recipe.dart';
-import 'package:meal_ai/style/color.dart';
-import 'package:meal_ai/util/screen_util.dart';
+import 'package:meal_ai/infrastracture/model/recipe.dart';
+import 'package:meal_ai/presentation/style/color.dart';
+import 'package:meal_ai/common/util/screen_util.dart';
 
 class RecipeDetailPage extends StatefulWidget {
   final Recipe recipe;

@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:meal_ai/firebase_options.dart';
-import 'package:meal_ai/style/color.dart';
-import 'package:meal_ai/util/screen_util.dart';
-import 'package:meal_ai/view/shopping_page.dart';
-import 'package:meal_ai/view/home_page.dart';
-import 'package:meal_ai/view/menu_page.dart';
-import 'package:meal_ai/view/setting_page.dart';
+import 'package:meal_ai/presentation/style/color.dart';
+import 'package:meal_ai/common/util/screen_util.dart';
+import 'package:meal_ai/presentation/page/shopping_page.dart';
+import 'package:meal_ai/presentation/page/home_page.dart';
+import 'package:meal_ai/presentation/page/menu_page.dart';
+import 'package:meal_ai/presentation/page/setting_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

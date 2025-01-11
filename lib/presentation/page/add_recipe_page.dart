@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meal_ai/model/ingredient.dart';
-import 'package:meal_ai/model/recipe.dart';
-import 'package:meal_ai/repository/recipe_repository.dart';
-import 'package:meal_ai/service/storage_service.dart';
-import 'package:meal_ai/style/color.dart';
-import 'package:meal_ai/util/allergy_util.dart';
-import 'package:meal_ai/util/enum/meal_type.dart';
-import 'package:meal_ai/util/enum/sale_area.dart';
-import 'package:meal_ai/util/enum/unit_type.dart';
+import 'package:meal_ai/infrastracture/model/ingredient.dart';
+import 'package:meal_ai/infrastracture/model/recipe.dart';
+import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
+import 'package:meal_ai/infrastracture/service/storage_service.dart';
+import 'package:meal_ai/presentation/style/color.dart';
+import 'package:meal_ai/common/util/allergy_util.dart';
+import 'package:meal_ai/common/enum/meal_type.dart';
+import 'package:meal_ai/common/enum/sale_area.dart';
+import 'package:meal_ai/common/enum/unit_type.dart';
 import 'package:uuid/uuid.dart';
 
 class AddRecipePage extends StatefulWidget {

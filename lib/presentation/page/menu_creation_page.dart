@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meal_ai/style/color.dart';
+import 'package:meal_ai/presentation/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 enum PageState {

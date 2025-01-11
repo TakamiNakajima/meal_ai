@@ -1,5 +1,5 @@
-import 'package:meal_ai/util/enum/sale_area.dart';
-import 'package:meal_ai/util/enum/unit_type.dart';
+import 'package:meal_ai/common/enum/sale_area.dart';
+import 'package:meal_ai/common/enum/unit_type.dart';
 
 /// 材料データ
 class Ingredient {

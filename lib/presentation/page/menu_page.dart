@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/model/recipe.dart';
-import 'package:meal_ai/repository/recipe_repository.dart';
-import 'package:meal_ai/style/color.dart';
-import 'package:meal_ai/util/transition_util.dart';
-import 'package:meal_ai/view/recipe_detail_page.dart';
+import 'package:meal_ai/infrastracture/model/recipe.dart';
+import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
+import 'package:meal_ai/presentation/style/color.dart';
+import 'package:meal_ai/common/util/transition_util.dart';
+import 'package:meal_ai/presentation/page/recipe_detail_page.dart';
 
 /// ノートリストを取得
-final noteListProvider = FutureProvider.autoDispose<List<Recipe>>((ref) {
+final recipeListProvider = FutureProvider.autoDispose<List<Recipe>>((ref) {
   return RecipeRepository.fetchRecipes();
 });
 
@@ -22,11 +22,11 @@ class MenuPage extends ConsumerStatefulWidget {
 class _MenuPageState extends ConsumerState<MenuPage> {
   @override
   Widget build(BuildContext context) {
-    final noteProvider = ref.watch(noteListProvider);
+    final recipesProvider = ref.watch(recipeListProvider);
 
     return Scaffold(
       backgroundColor: AppColor.bgWhite,
-      body: noteProvider.when(
+      body: recipesProvider.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) => Center(child: Text('Error: $error')),
         data: (recipeList) {

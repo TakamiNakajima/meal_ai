@@ -1,5 +1,5 @@
-import 'package:meal_ai/model/ingredient.dart';
-import 'package:meal_ai/util/enum/meal_type.dart';
+import 'package:meal_ai/infrastracture/model/ingredient.dart';
+import 'package:meal_ai/common/enum/meal_type.dart';
 
 /// 料理
 class Recipe {

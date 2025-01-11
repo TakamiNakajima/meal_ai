@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meal_ai/style/color.dart';
+import 'package:meal_ai/presentation/style/color.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
