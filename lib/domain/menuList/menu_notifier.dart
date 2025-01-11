@@ -1,15 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/menu/menu_state.dart';
+import 'package:meal_ai/domain/menuList/menu_state.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
-final menuProvider = StateNotifierProvider<MenuNotifier, MenuState>(
-  (ref) => MenuNotifier(recipeRepository: RecipeRepository()),
+final menuListProvider = StateNotifierProvider<MenuListNotifier, MenuListState>(
+  (ref) => MenuListNotifier(recipeRepository: RecipeRepository()),
 );
 
-class MenuNotifier extends StateNotifier<MenuState> {
+class MenuListNotifier extends StateNotifier<MenuListState> {
   final RecipeRepository recipeRepository;
 
-  MenuNotifier({required this.recipeRepository}) : super(MenuState()) {
+  MenuListNotifier({required this.recipeRepository}) : super(MenuListState()) {
     init();
   }
 

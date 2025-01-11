@@ -1,19 +1,19 @@
 import 'package:meal_ai/infrastructure/model/recipe.dart';
 
-class MenuState {
+class MenuListState {
   final List<Recipe> recipeList;
   final bool isLoading;
 
-  MenuState({
+  MenuListState({
     this.recipeList = const [],
     this.isLoading = false,
   });
 
-  MenuState copyWith({
+  MenuListState copyWith({
     List<Recipe>? recipeList,
     bool? isLoading,
   }) {
-    return MenuState(
+    return MenuListState(
       recipeList: recipeList ?? this.recipeList,
       isLoading: isLoading ?? this.isLoading,
     );

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_ai/domain/menu/menu_notifier.dart';
+import 'package:meal_ai/domain/menuList/menu_notifier.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 
-class MenuPage extends ConsumerWidget {
-  const MenuPage({Key? key}) : super(key: key);
+class MenuListPage extends ConsumerWidget {
+  const MenuListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final menuPageState = ref.watch(menuProvider);
+    final menuPageState = ref.watch(menuListProvider);
 
     if (menuPageState.isLoading) {
       return const Scaffold(
