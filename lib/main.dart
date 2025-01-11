@@ -10,6 +10,7 @@ import 'package:meal_ai/presentation/page/shopping_page.dart';
 import 'package:meal_ai/presentation/page/home_page.dart';
 import 'package:meal_ai/presentation/page/menu_page.dart';
 import 'package:meal_ai/presentation/page/setting_page.dart';
+import 'package:meal_ai/presentation/util/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenUtil.initialize(context);
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerDelegate: goRouter.routerDelegate,
+      routeInformationParser: goRouter.routeInformationParser,
+      routeInformationProvider: goRouter.routeInformationProvider,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: false,
@@ -37,7 +41,6 @@ class MyApp extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
       ),
-      home: const MyHomePage(),
     );
   }
 }

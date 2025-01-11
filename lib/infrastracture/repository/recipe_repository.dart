@@ -15,9 +15,19 @@ class RecipeRepository {
     }
   }
 
-  static Future<List<Recipe>> fetchRecipes() async {
+  static Future<Recipe> fetchRecipe(String recipeID) async {
     try {
-      final recipes = await FireStoreService.fetchRecipes();
+      final recipe = await FireStoreService.fetchRecipe(recipeID);
+      return recipe;
+    } catch (e) {
+      print('Failed to fetch recipes: $e');
+      rethrow;
+    }
+  }
+
+  static Future<List<Recipe>> fetchRecipeList() async {
+    try {
+      final recipes = await FireStoreService.fetchRecipeList();
       return recipes;
     } catch (e) {
       print('Failed to fetch recipes: $e');

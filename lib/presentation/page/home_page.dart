@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_ai/domain/home/home_page_notifier.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/common/util/transition_util.dart';
-import 'package:meal_ai/presentation/page/add_recipe_page.dart';
-import 'package:meal_ai/presentation/page/menu_creation_page.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -31,11 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         backgroundColor: AppColor.mainColor,
         onPressed: () {
           HapticFeedback.lightImpact();
-          Navigator.of(context).push(
-            TransitionUtil.whiteOut(
-              const AddRecipePage(),
-            ),
-          );
+          context.go('/addPage');
         },
         child: const Icon(Icons.add),
       ),
@@ -46,11 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: GestureDetector(
               onTap: () async {
                 HapticFeedback.lightImpact();
-                Navigator.of(context).push(
-                  TransitionUtil.whiteOut(
-                    const MenuCreationPage(),
-                  ),
-                );
+                context.go('/menuCreationPage');
               },
               child: Container(
                 width: 120,

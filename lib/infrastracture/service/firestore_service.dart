@@ -13,7 +13,18 @@ class FireStoreService {
         .set(data);
   }
 
-  static Future<List<Recipe>> fetchRecipes() async {
+  static Future<Recipe> fetchRecipe(String recipeID) async {
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('recipes')
+        .where('id', isEqualTo: recipeID)
+        .limit(1)
+        .get();
+
+    final doc = querySnapshot.docs.first;
+    return Recipe.fromMap(doc.data());
+  }
+
+  static Future<List<Recipe>> fetchRecipeList() async {
     final querySnapshot = await FirebaseFirestore.instance.collection('recipes').get();
 
     final recipeList = querySnapshot.docs.map((doc) {

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_ai/infrastracture/model/recipe.dart';
 import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/common/util/transition_util.dart';
-import 'package:meal_ai/presentation/page/recipe_detail_page.dart';
 
 /// ノートリストを取得
-final recipeListProvider = FutureProvider.autoDispose<List<Recipe>>((ref) {
-  return RecipeRepository.fetchRecipes();
+final recipeListProvider = FutureProvider.autoDispose<List<Recipe>>((ref) async {
+  return await RecipeRepository.fetchRecipeList();
 });
 
 class MenuPage extends ConsumerStatefulWidget {
@@ -45,11 +44,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                 return InkWell(
                   onTap: () {
                     HapticFeedback.lightImpact();
-                    Navigator.of(context).push(
-                      TransitionUtil.whiteOut(
-                        RecipeDetailPage(recipe: recipe),
-                      ),
-                    );
+                    context.push('/recipeDetailPage/${recipe.id}');
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
