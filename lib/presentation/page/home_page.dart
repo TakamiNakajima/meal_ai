@@ -25,14 +25,6 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       backgroundColor: AppColor.bgWhite,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColor.mainColor,
-        onPressed: () {
-          HapticFeedback.lightImpact();
-          context.push('/addPage');
-        },
-        child: const Icon(Icons.add),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
