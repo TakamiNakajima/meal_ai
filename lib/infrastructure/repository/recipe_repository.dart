@@ -1,5 +1,5 @@
-import 'package:meal_ai/infrastracture/model/recipe.dart';
-import 'package:meal_ai/infrastracture/service/firestore_service.dart';
+import 'package:meal_ai/infrastructure/model/recipe.dart';
+import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 class RecipeRepository {
   static Future<void> addRecipe(Recipe recipe) async {
@@ -25,7 +25,7 @@ class RecipeRepository {
     }
   }
 
-  static Future<List<Recipe>> fetchRecipeList() async {
+  Future<List<Recipe>> fetchRecipeList() async {
     try {
       final recipes = await FireStoreService.fetchRecipeList();
       return recipes;

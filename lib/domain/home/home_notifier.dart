@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/home/home_page_state.dart';
-import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
+import 'package:meal_ai/domain/home/home_state.dart';
+import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>(
       (ref) => HomeNotifier(recipeRepository: RecipeRepository()),

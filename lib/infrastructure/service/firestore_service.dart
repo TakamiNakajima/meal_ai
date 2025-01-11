@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meal_ai/infrastracture/model/recipe.dart';
+import 'package:meal_ai/infrastructure/model/recipe.dart';
 
 class FireStoreService {
   static Future<void> addData({

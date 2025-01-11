@@ -1,4 +1,4 @@
-import 'package:meal_ai/infrastracture/model/ingredient.dart';
+import 'package:meal_ai/infrastructure/model/ingredient.dart';
 import 'package:meal_ai/common/enum/meal_type.dart';
 
 /// 料理
