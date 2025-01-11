@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meal_ai/infrastracture/model/ingredient.dart';
 import 'package:meal_ai/infrastracture/model/recipe.dart';
@@ -145,7 +146,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
             icon: const Icon(
               Icons.close,

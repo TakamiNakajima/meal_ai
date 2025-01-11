@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -36,7 +37,7 @@ class _MenuCreationPageState extends State<MenuCreationPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
             icon: const Icon(
               Icons.close,

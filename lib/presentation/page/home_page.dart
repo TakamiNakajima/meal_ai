@@ -29,7 +29,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         backgroundColor: AppColor.mainColor,
         onPressed: () {
           HapticFeedback.lightImpact();
-          context.go('/addPage');
+          context.push('/addPage');
         },
         child: const Icon(Icons.add),
       ),
@@ -40,7 +40,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: GestureDetector(
               onTap: () async {
                 HapticFeedback.lightImpact();
-                context.go('/menuCreationPage');
+                context.push('/menuCreationPage');
               },
               child: Container(
                 width: 120,
