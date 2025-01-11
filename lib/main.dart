@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:meal_ai/firebase_options.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/common/util/screen_util.dart';
+import 'package:meal_ai/presentation/util/screen_util.dart';
 import 'package:meal_ai/presentation/page/shopping_page.dart';
 import 'package:meal_ai/presentation/page/home_page.dart';
 import 'package:meal_ai/presentation/page/menu_page.dart';

@@ -7,7 +7,7 @@ import 'package:meal_ai/infrastracture/model/recipe.dart';
 import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
 import 'package:meal_ai/infrastracture/service/storage_service.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/common/util/allergy_util.dart';
+import 'package:meal_ai/presentation/util/allergy_util.dart';
 import 'package:meal_ai/common/enum/meal_type.dart';
 import 'package:meal_ai/common/enum/sale_area.dart';
 import 'package:meal_ai/common/enum/unit_type.dart';

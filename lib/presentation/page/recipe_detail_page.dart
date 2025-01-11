@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:meal_ai/infrastracture/model/recipe.dart';
 import 'package:meal_ai/infrastracture/repository/recipe_repository.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/common/util/screen_util.dart';
+import 'package:meal_ai/presentation/util/screen_util.dart';
 
 /// レシピを取得
 final recipeDetailProvider = FutureProvider.family.autoDispose<Recipe, String>((ref, recipeID) async {

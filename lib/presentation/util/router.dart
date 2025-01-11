@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_ai/common/util/transition_util.dart';
+import 'package:meal_ai/presentation/util/transition_util.dart';
 import 'package:meal_ai/main.dart';
 import 'package:meal_ai/presentation/page/add_recipe_page.dart';
 import 'package:meal_ai/presentation/page/menu_creation_page.dart';
