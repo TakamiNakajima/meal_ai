@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meal_ai/domain/generate_menu/generate_menu_notifier.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 enum PageState {
-  /// 開始日選択中
+  /// 開始日選択画面
   start,
 
-  /// 終了日選択中
+  /// 終了日選択画面
   end,
 
-  /// 献立作成中
+  /// 献立作成画面
   generate,
 }
 
-class GenerateMenuPage extends StatefulWidget {
+class GenerateMenuPage extends ConsumerStatefulWidget {
   const GenerateMenuPage({super.key});
 
   @override
-  State<GenerateMenuPage> createState() => _GenerateMenuPageState();
+  ConsumerState<GenerateMenuPage> createState() => _GenerateMenuPageState();
 }
 
-class _GenerateMenuPageState extends State<GenerateMenuPage> {
-  DateTime? rangeStartDay;
-  DateTime? rangeEndDay;
-  PageState pageState = PageState.start;
-
+class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
   @override
   Widget build(BuildContext context) {
+    final homePageProvider = ref.watch(generateMenuProvider);
+    final homePageNotifier = ref.read(generateMenuProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -47,7 +48,7 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
         ],
       ),
       body: SafeArea(
-        child: (pageState == PageState.start || pageState == PageState.end)
+        child: (homePageProvider.pageState == PageState.start || homePageProvider.pageState == PageState.end)
 
             /// 期間選択画面
             ? Stack(
@@ -55,7 +56,7 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                   Column(
                     children: [
                       const SizedBox(height: 40),
-                      Text((pageState == PageState.start) ? "開始日を選択してください" : "終了日を選択してください"),
+                      Text((homePageProvider.pageState == PageState.start) ? "開始日を選択してください" : "終了日を選択してください"),
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -77,20 +78,13 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                           firstDay: DateTime.utc(2000, 1, 1),
                           lastDay: DateTime.utc(2030, 12, 31),
                           focusedDay: DateTime.now(),
-                          rangeStartDay: rangeStartDay,
-                          rangeEndDay: rangeEndDay,
+                          rangeStartDay: homePageProvider.rangeStartDay,
+                          rangeEndDay: homePageProvider.rangeEndDay,
                           rangeSelectionMode: RangeSelectionMode.enforced,
                           locale: 'ja_JP',
                           onRangeSelected: (start, end, focusedDay) {
                             HapticFeedback.lightImpact();
-                            setState(() {
-                              rangeStartDay = start;
-                              rangeEndDay = end;
-
-                              if (pageState == PageState.start) {
-                                pageState = PageState.end;
-                              } else if (pageState == PageState.end) {}
-                            });
+                            homePageNotifier.onSelectDate(start, end);
                           },
                           calendarBuilders: CalendarBuilders(
                             todayBuilder: (context, todayDay, focusDay) => Center(
@@ -138,8 +132,10 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                               );
                             },
                             rangeHighlightBuilder: (context, day, focusedDay) {
-                              if (rangeStartDay != null && rangeEndDay != null) {
-                                if (day.isAfter(rangeStartDay!) && day.isBefore(rangeEndDay!)) {
+                              if (homePageProvider.rangeStartDay != null &&
+                                  homePageProvider.rangeEndDay != null) {
+                                if (day.isAfter(homePageProvider.rangeStartDay!) &&
+                                    day.isBefore(homePageProvider.rangeEndDay!)) {
                                   return Container(
                                     decoration: BoxDecoration(
                                       color: AppColor.mainColor.withOpacity(0.3),
@@ -155,8 +151,8 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                                       ),
                                     ),
                                   );
-                                } else if (day.isAtSameMomentAs(rangeStartDay!) ||
-                                    day.isAtSameMomentAs(rangeEndDay!)) {
+                                } else if (day.isAtSameMomentAs(homePageProvider.rangeStartDay!) ||
+                                    day.isAtSameMomentAs(homePageProvider.rangeEndDay!)) {
                                   // 範囲開始または範囲終了日の場合
                                   return Container(
                                     decoration: BoxDecoration(
@@ -181,16 +177,17 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                         ),
                       ),
                       const SizedBox(height: 40),
-                      if (rangeStartDay != null && rangeEndDay != null)
+                      if (homePageProvider.rangeStartDay != null && homePageProvider.rangeEndDay != null)
                         SizedBox(
                           width: 200,
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () {
                               HapticFeedback.lightImpact();
-                              setState(() {
-                                pageState = PageState.generate;
-                              });
+
+                              // setState(() {
+                              //   homePageProvider.pageState = PageState.generate;
+                              // });
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColor.mainColor,
@@ -212,9 +209,9 @@ class _GenerateMenuPageState extends State<GenerateMenuPage> {
                 child: Column(
                   children: [
                     const Text("開始日"),
-                    Text(rangeStartDay.toString()),
+                    Text(homePageProvider.rangeStartDay.toString()),
                     const Text("終了日"),
-                    Text(rangeEndDay.toString()),
+                    Text(homePageProvider.rangeEndDay.toString()),
                   ],
                 ),
               )),

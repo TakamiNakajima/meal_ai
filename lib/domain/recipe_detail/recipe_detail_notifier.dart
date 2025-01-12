@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/recipeDetail/recipe_detail_state.dart';
+import 'package:meal_ai/domain/recipe_detail/recipe_detail_state.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
 final recipeDetailProvider = StateNotifierProvider.family<RecipeDetailNotifier, RecipeDetailState, String>(

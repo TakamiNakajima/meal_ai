@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_ai/common/enum/unit_type.dart';
-import 'package:meal_ai/domain/recipeDetail/recipe_detail_notifier.dart';
+import 'package:meal_ai/domain/recipe_detail/recipe_detail_notifier.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 import 'package:meal_ai/presentation/util/screen_util.dart';
 

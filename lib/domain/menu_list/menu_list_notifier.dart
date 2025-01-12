@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/menuList/menu_list_state.dart';
+import 'package:meal_ai/domain/menu_list/menu_list_state.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
 final menuListProvider = StateNotifierProvider<MenuListNotifier, MenuListState>(
