@@ -20,16 +20,37 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Recipe {
+  /// ID
   String get id => throw _privateConstructorUsedError;
+
+  /// 料理名
   String get title => throw _privateConstructorUsedError;
+
+  /// 説明文
   String get description => throw _privateConstructorUsedError;
+
+  /// 画像
   String get imageUrl => throw _privateConstructorUsedError;
+
+  /// 調理時間
   int get cookingTime => throw _privateConstructorUsedError;
+
+  /// カロリー
   int get calorie => throw _privateConstructorUsedError;
+
+  /// 材料リスト
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
+
+  /// 料理タイプ(主菜,副菜,主食,汁物)
   MealType get mealType => throw _privateConstructorUsedError;
+
+  /// 調理方法
   List<String> get steps => throw _privateConstructorUsedError;
+
+  /// アレルギー類
   List<String> get allergies => throw _privateConstructorUsedError;
+
+  /// 検索タグ
   List<String> get tags => throw _privateConstructorUsedError;
 
   /// Serializes this Recipe to a JSON map.
@@ -254,19 +275,34 @@ class _$RecipeImpl with DiagnosticableTreeMixin implements _Recipe {
   factory _$RecipeImpl.fromJson(Map<String, dynamic> json) =>
       _$$RecipeImplFromJson(json);
 
+  /// ID
   @override
   final String id;
+
+  /// 料理名
   @override
   final String title;
+
+  /// 説明文
   @override
   final String description;
+
+  /// 画像
   @override
   final String imageUrl;
+
+  /// 調理時間
   @override
   final int cookingTime;
+
+  /// カロリー
   @override
   final int calorie;
+
+  /// 材料リスト
   final List<Ingredient> _ingredients;
+
+  /// 材料リスト
   @override
   List<Ingredient> get ingredients {
     if (_ingredients is EqualUnmodifiableListView) return _ingredients;
@@ -274,9 +310,14 @@ class _$RecipeImpl with DiagnosticableTreeMixin implements _Recipe {
     return EqualUnmodifiableListView(_ingredients);
   }
 
+  /// 料理タイプ(主菜,副菜,主食,汁物)
   @override
   final MealType mealType;
+
+  /// 調理方法
   final List<String> _steps;
+
+  /// 調理方法
   @override
   List<String> get steps {
     if (_steps is EqualUnmodifiableListView) return _steps;
@@ -284,7 +325,10 @@ class _$RecipeImpl with DiagnosticableTreeMixin implements _Recipe {
     return EqualUnmodifiableListView(_steps);
   }
 
+  /// アレルギー類
   final List<String> _allergies;
+
+  /// アレルギー類
   @override
   List<String> get allergies {
     if (_allergies is EqualUnmodifiableListView) return _allergies;
@@ -292,7 +336,10 @@ class _$RecipeImpl with DiagnosticableTreeMixin implements _Recipe {
     return EqualUnmodifiableListView(_allergies);
   }
 
+  /// 検索タグ
   final List<String> _tags;
+
+  /// 検索タグ
   @override
   List<String> get tags {
     if (_tags is EqualUnmodifiableListView) return _tags;
@@ -395,26 +442,47 @@ abstract class _Recipe implements Recipe {
 
   factory _Recipe.fromJson(Map<String, dynamic> json) = _$RecipeImpl.fromJson;
 
+  /// ID
   @override
   String get id;
+
+  /// 料理名
   @override
   String get title;
+
+  /// 説明文
   @override
   String get description;
+
+  /// 画像
   @override
   String get imageUrl;
+
+  /// 調理時間
   @override
   int get cookingTime;
+
+  /// カロリー
   @override
   int get calorie;
+
+  /// 材料リスト
   @override
   List<Ingredient> get ingredients;
+
+  /// 料理タイプ(主菜,副菜,主食,汁物)
   @override
   MealType get mealType;
+
+  /// 調理方法
   @override
   List<String> get steps;
+
+  /// アレルギー類
   @override
   List<String> get allergies;
+
+  /// 検索タグ
   @override
   List<String> get tags;
 

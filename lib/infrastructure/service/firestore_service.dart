@@ -28,6 +28,7 @@ class FireStoreService {
     final querySnapshot = await FirebaseFirestore.instance.collection('recipes').get();
 
     final recipeList = querySnapshot.docs.map((doc) {
+      print(doc.data());
       return Recipe.fromJson(doc.data());
     }).toList();
 

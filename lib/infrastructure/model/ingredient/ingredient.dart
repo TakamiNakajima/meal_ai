@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 import 'package:meal_ai/common/enum/sale_area.dart';
 import 'package:meal_ai/common/enum/unit_type.dart';
 
@@ -13,7 +12,7 @@ class Ingredient with _$Ingredient {
     required String name,
 
     /// 量
-    required String quantity,
+    required int quantity,
 
     /// 単位
     required UnitType unit,

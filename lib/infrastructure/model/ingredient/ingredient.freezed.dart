@@ -20,9 +20,16 @@ Ingredient _$IngredientFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Ingredient {
+  /// 材料名
   String get name => throw _privateConstructorUsedError;
-  String get quantity => throw _privateConstructorUsedError;
+
+  /// 量
+  int get quantity => throw _privateConstructorUsedError;
+
+  /// 単位
   UnitType get unit => throw _privateConstructorUsedError;
+
+  /// 売り場
   SaleArea get saleArea => throw _privateConstructorUsedError;
 
   /// Serializes this Ingredient to a JSON map.
@@ -41,7 +48,7 @@ abstract class $IngredientCopyWith<$Res> {
           Ingredient value, $Res Function(Ingredient) then) =
       _$IngredientCopyWithImpl<$Res, Ingredient>;
   @useResult
-  $Res call({String name, String quantity, UnitType unit, SaleArea saleArea});
+  $Res call({String name, int quantity, UnitType unit, SaleArea saleArea});
 }
 
 /// @nodoc
@@ -72,7 +79,7 @@ class _$IngredientCopyWithImpl<$Res, $Val extends Ingredient>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       unit: null == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -93,7 +100,7 @@ abstract class _$$IngredientImplCopyWith<$Res>
       __$$IngredientImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String quantity, UnitType unit, SaleArea saleArea});
+  $Res call({String name, int quantity, UnitType unit, SaleArea saleArea});
 }
 
 /// @nodoc
@@ -122,7 +129,7 @@ class __$$IngredientImplCopyWithImpl<$Res>
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       unit: null == unit
           ? _value.unit
           : unit // ignore: cast_nullable_to_non_nullable
@@ -137,7 +144,7 @@ class __$$IngredientImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$IngredientImpl with DiagnosticableTreeMixin implements _Ingredient {
+class _$IngredientImpl implements _Ingredient {
   const _$IngredientImpl(
       {required this.name,
       required this.quantity,
@@ -147,29 +154,25 @@ class _$IngredientImpl with DiagnosticableTreeMixin implements _Ingredient {
   factory _$IngredientImpl.fromJson(Map<String, dynamic> json) =>
       _$$IngredientImplFromJson(json);
 
+  /// 材料名
   @override
   final String name;
+
+  /// 量
   @override
-  final String quantity;
+  final int quantity;
+
+  /// 単位
   @override
   final UnitType unit;
+
+  /// 売り場
   @override
   final SaleArea saleArea;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Ingredient(name: $name, quantity: $quantity, unit: $unit, saleArea: $saleArea)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Ingredient'))
-      ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('quantity', quantity))
-      ..add(DiagnosticsProperty('unit', unit))
-      ..add(DiagnosticsProperty('saleArea', saleArea));
   }
 
   @override
@@ -208,19 +211,26 @@ class _$IngredientImpl with DiagnosticableTreeMixin implements _Ingredient {
 abstract class _Ingredient implements Ingredient {
   const factory _Ingredient(
       {required final String name,
-      required final String quantity,
+      required final int quantity,
       required final UnitType unit,
       required final SaleArea saleArea}) = _$IngredientImpl;
 
   factory _Ingredient.fromJson(Map<String, dynamic> json) =
       _$IngredientImpl.fromJson;
 
+  /// 材料名
   @override
   String get name;
+
+  /// 量
   @override
-  String get quantity;
+  int get quantity;
+
+  /// 単位
   @override
   UnitType get unit;
+
+  /// 売り場
   @override
   SaleArea get saleArea;
 

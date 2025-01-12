@@ -39,8 +39,8 @@ Map<String, dynamic> _$$RecipeImplToJson(_$RecipeImpl instance) =>
     };
 
 const _$MealTypeEnumMap = {
-  MealType.mainDish: 'mainDish',
-  MealType.sideDish: 'sideDish',
-  MealType.stapleFood: 'stapleFood',
-  MealType.soup: 'soup',
+  MealType.mainDish: '主菜',
+  MealType.sideDish: '副菜',
+  MealType.stapleFood: '主食',
+  MealType.soup: '汁物',
 };

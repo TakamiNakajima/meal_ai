@@ -1,100 +1,77 @@
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonEnum()
 enum UnitType {
   /// 個
+  @JsonValue("個")
   individual,
 
   /// 本
+  @JsonValue("本")
   stalk,
 
   /// 玉
+  @JsonValue("玉")
   bulb,
 
   /// 束
+  @JsonValue("束")
   bunch,
 
   /// 枚
+  @JsonValue("枚")
   sheet,
 
   /// 房
+  @JsonValue("房")
   cluster,
 
   /// グラム
+  @JsonValue("g")
   gram,
 
   /// キログラム
+  @JsonValue("kg")
   kilogram,
 
   /// カップ
+  @JsonValue("カップ")
   cup,
 
   /// 大さじ
+  @JsonValue("大さじ")
   tablespoon,
 
   /// 小さじ
+  @JsonValue("小さじ")
   teaspoon,
 
   /// ミリリットル
+  @JsonValue("mL")
   milliliter,
 
   /// リットル
+  @JsonValue("L")
   liter,
 
   /// 片
+  @JsonValue("片")
   piece,
 
   /// 少々
+  @JsonValue("少々")
   pinch,
 
   /// 袋
+  @JsonValue("袋")
   pack,
 
   /// 適量
+  @JsonValue("適量")
   toTaste;
 
-  /// Enumの文字列ラベルを`UnitType`に変換
-  static UnitType toUnitType(String label) {
-    switch (label) {
-      case "個":
-        return UnitType.individual;
-      case "本":
-        return UnitType.stalk;
-      case "玉":
-        return UnitType.bulb;
-      case "束":
-        return UnitType.bunch;
-      case "枚":
-        return UnitType.sheet;
-      case "房":
-        return UnitType.cluster;
-      case "g":
-        return UnitType.gram;
-      case "kg":
-        return UnitType.kilogram;
-      case "カップ":
-        return UnitType.cup;
-      case "大さじ":
-        return UnitType.tablespoon;
-      case "小さじ":
-        return UnitType.teaspoon;
-      case "mL":
-        return UnitType.milliliter;
-      case "L":
-        return UnitType.liter;
-      case "片":
-        return UnitType.piece;
-      case "少々":
-        return UnitType.pinch;
-      case "袋":
-        return UnitType.pack;
-      case "適量":
-        return UnitType.toTaste;
-      default:
-        throw ArgumentError("Unsupported UnitType label: $label");
-    }
-  }
-
-  /// Enumの文字列ラベル
-  String toLabel() {
-    switch (this) {
+  static String toLabel(UnitType type) {
+    switch (type) {
       case UnitType.individual:
         return "個";
       case UnitType.stalk:

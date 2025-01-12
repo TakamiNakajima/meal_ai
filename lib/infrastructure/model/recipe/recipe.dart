@@ -30,7 +30,7 @@ class Recipe with _$Recipe {
     /// 材料リスト
     required List<Ingredient> ingredients,
 
-    /// 料理タイプ(主菜,副菜,主食,汁物)
+    /// 料理タイプ
     required MealType mealType,
 
     /// 調理方法

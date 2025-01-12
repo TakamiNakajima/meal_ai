@@ -2,7 +2,7 @@ import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 class RecipeRepository {
-  static Future<void> addRecipe(Recipe recipe) async {
+  Future<void> addRecipe(Recipe recipe) async {
     try {
       final Map<String, dynamic> mapData = {
         "id": recipe.id,
@@ -28,7 +28,7 @@ class RecipeRepository {
     }
   }
 
-  static Future<Recipe> fetchRecipe(String recipeID) async {
+  Future<Recipe> fetchRecipe(String recipeID) async {
     try {
       final recipe = await FireStoreService.fetchRecipe(recipeID);
       return recipe;
