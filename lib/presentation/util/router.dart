@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_ai/presentation/util/transition_util.dart';
 import 'package:meal_ai/main.dart';
-import 'package:meal_ai/presentation/page/menu_creation_page.dart';
+import 'package:meal_ai/presentation/page/generate_menu_page.dart';
 import 'package:meal_ai/presentation/page/recipe_detail_page.dart';
 
 final goRouter = GoRouter(
@@ -19,10 +19,10 @@ final goRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/menuCreationPage',
+      path: '/generateMenuPage',
       pageBuilder: (context, state) {
         return const CustomTransitionPage(
-          child: MenuCreationPage(),
+          child: GenerateMenuPage(),
           transitionsBuilder: TransitionUtil.buildWhiteOutTransition,
           transitionDuration: Duration(seconds: 1),
           reverseTransitionDuration: Duration(seconds: 1),

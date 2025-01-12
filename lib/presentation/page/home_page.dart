@@ -32,7 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             child: GestureDetector(
               onTap: () async {
                 HapticFeedback.lightImpact();
-                context.push('/menuCreationPage');
+                context.push('/generateMenuPage');
               },
               child: Container(
                 width: 120,

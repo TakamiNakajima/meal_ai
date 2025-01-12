@@ -15,14 +15,14 @@ enum PageState {
   generate,
 }
 
-class MenuCreationPage extends StatefulWidget {
-  const MenuCreationPage({super.key});
+class GenerateMenuPage extends StatefulWidget {
+  const GenerateMenuPage({super.key});
 
   @override
-  State<MenuCreationPage> createState() => _MenuCreationPageState();
+  State<GenerateMenuPage> createState() => _GenerateMenuPageState();
 }
 
-class _MenuCreationPageState extends State<MenuCreationPage> {
+class _GenerateMenuPageState extends State<GenerateMenuPage> {
   DateTime? rangeStartDay;
   DateTime? rangeEndDay;
   PageState pageState = PageState.start;
