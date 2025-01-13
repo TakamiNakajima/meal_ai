@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_ai/domain/recipe_detail/recipe_detail_state.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
+import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 final recipeDetailProvider = StateNotifierProvider.family<RecipeDetailNotifier, RecipeDetailState, String>(
   (ref, recipeID) => RecipeDetailNotifier(
-    recipeRepository: RecipeRepository(),
+    recipeRepository: RecipeRepository(fireStoreService: FireStoreService()),
     recipeID: recipeID,
   ),
 );

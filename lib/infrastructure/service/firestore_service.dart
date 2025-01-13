@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 
 class FireStoreService {
-  static Future<void> addData({
+  Future<void> addData({
     required String collection,
     required String documentId,
     required Map<String, dynamic> data
@@ -13,7 +13,7 @@ class FireStoreService {
         .set(data);
   }
 
-  static Future<Recipe> fetchRecipe(String recipeID) async {
+  Future<Recipe> fetchRecipe(String recipeID) async {
     final querySnapshot = await FirebaseFirestore.instance
         .collection('recipes')
         .where('id', isEqualTo: recipeID)
@@ -24,11 +24,10 @@ class FireStoreService {
     return Recipe.fromJson(doc.data());
   }
 
-  static Future<List<Recipe>> fetchRecipeList() async {
+  Future<List<Recipe>> fetchRecipeList() async {
     final querySnapshot = await FirebaseFirestore.instance.collection('recipes').get();
 
     final recipeList = querySnapshot.docs.map((doc) {
-      print(doc.data());
       return Recipe.fromJson(doc.data());
     }).toList();
 
