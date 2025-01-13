@@ -9,7 +9,7 @@ final menuListProvider = StateNotifierProvider<MenuListNotifier, MenuListState>(
 class MenuListNotifier extends StateNotifier<MenuListState> {
   final RecipeRepository recipeRepository;
 
-  MenuListNotifier({required this.recipeRepository}) : super(MenuListState()) {
+  MenuListNotifier({required this.recipeRepository}) : super(const MenuListState()) {
     init();
   }
 

@@ -16,7 +16,7 @@ class RecipeDetailNotifier extends StateNotifier<RecipeDetailState> {
   RecipeDetailNotifier({
     required this.recipeRepository,
     required this.recipeID,
-  }) : super(RecipeDetailState()) {
+  }) : super(const RecipeDetailState()) {
     init();
   }
 

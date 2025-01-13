@@ -17,7 +17,7 @@ _$GenerateMenuStateImpl _$$GenerateMenuStateImplFromJson(
           ? null
           : DateTime.parse(json['rangeEndDay'] as String),
       pageState: $enumDecodeNullable(_$PageStateEnumMap, json['pageState']) ??
-          PageState.start,
+          GeneratePageState.start,
     );
 
 Map<String, dynamic> _$$GenerateMenuStateImplToJson(
@@ -30,7 +30,7 @@ Map<String, dynamic> _$$GenerateMenuStateImplToJson(
     };
 
 const _$PageStateEnumMap = {
-  PageState.start: 'start',
-  PageState.end: 'end',
-  PageState.generate: 'generate',
+  GeneratePageState.start: 'start',
+  GeneratePageState.end: 'end',
+  GeneratePageState.generate: 'generate',
 };

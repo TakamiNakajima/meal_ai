@@ -2,20 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meal_ai/common/enum/generate_page_state.dart';
 import 'package:meal_ai/domain/generate_menu/generate_menu_notifier.dart';
 import 'package:meal_ai/presentation/style/color.dart';
+import 'package:meal_ai/presentation/widget/primary_button.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-enum PageState {
-  /// 開始日選択画面
-  start,
-
-  /// 終了日選択画面
-  end,
-
-  /// 献立作成画面
-  generate,
-}
 
 class GenerateMenuPage extends ConsumerStatefulWidget {
   const GenerateMenuPage({super.key});
@@ -48,7 +39,8 @@ class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
         ],
       ),
       body: SafeArea(
-        child: (homePageProvider.pageState == PageState.start || homePageProvider.pageState == PageState.end)
+        child: (homePageProvider.pageState == GeneratePageState.start ||
+                homePageProvider.pageState == GeneratePageState.end)
 
             /// 期間選択画面
             ? Stack(
@@ -56,7 +48,9 @@ class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
                   Column(
                     children: [
                       const SizedBox(height: 40),
-                      Text((homePageProvider.pageState == PageState.start) ? "開始日を選択してください" : "終了日を選択してください"),
+                      Text((homePageProvider.pageState == GeneratePageState.start)
+                          ? "開始日を選択してください"
+                          : "終了日を選択してください"),
                       const SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -178,26 +172,13 @@ class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
                       ),
                       const SizedBox(height: 40),
                       if (homePageProvider.rangeStartDay != null && homePageProvider.rangeEndDay != null)
-                        SizedBox(
-                          width: 200,
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              HapticFeedback.lightImpact();
+                        PrimaryButton(title: "作成", onTap: () {
+                          HapticFeedback.lightImpact();
 
-                              // setState(() {
-                              //   homePageProvider.pageState = PageState.generate;
-                              // });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColor.mainColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                            ),
-                            child: const Text("作成"),
-                          ),
-                        )
+                          // setState(() {
+                          //   homePageProvider.pageState = PageState.generate;
+                          // });
+                        })
                     ],
                   ),
                 ],
