@@ -2,8 +2,11 @@ import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 class RecipeRepository {
-  final FireStoreService fireStoreService;
-  RecipeRepository({required this.fireStoreService});
+  RecipeRepository({
+    required FireStoreService fireStoreService,
+  }) : _fireStoreService = fireStoreService;
+
+  final FireStoreService _fireStoreService;
 
   Future<void> addRecipe(Recipe recipe) async {
     try {
@@ -20,7 +23,7 @@ class RecipeRepository {
         "allergies": recipe.allergies,
         "tags": recipe.tags,
       };
-      await fireStoreService.addData(
+      await _fireStoreService.addData(
         collection: 'recipes',
         documentId: recipe.id,
         data: mapData,
@@ -33,7 +36,7 @@ class RecipeRepository {
 
   Future<Recipe> fetchRecipe(String recipeID) async {
     try {
-      final recipe = await fireStoreService.fetchRecipe(recipeID);
+      final recipe = await _fireStoreService.fetchRecipe(recipeID);
       return recipe;
     } catch (e) {
       print('Failed to fetch recipes: $e');
@@ -43,7 +46,7 @@ class RecipeRepository {
 
   Future<List<Recipe>> fetchRecipeList() async {
     try {
-      final recipes = await fireStoreService.fetchRecipeList();
+      final recipes = await _fireStoreService.fetchRecipeList();
       return recipes;
     } catch (e) {
       print('Failed to fetch recipes: $e');

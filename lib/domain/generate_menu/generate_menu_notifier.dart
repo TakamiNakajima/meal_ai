@@ -6,6 +6,9 @@ final generateMenuProvider = StateNotifierProvider<GenerateMenuNotifier, Generat
       (ref) => GenerateMenuNotifier(),
 );
 
+///
+/// 献立生成画面のNotifier
+///
 class GenerateMenuNotifier extends StateNotifier<GenerateMenuState> {
   GenerateMenuNotifier() : super(const GenerateMenuState()) {
     init();

@@ -16,8 +16,9 @@ _$GenerateMenuStateImpl _$$GenerateMenuStateImplFromJson(
       rangeEndDay: json['rangeEndDay'] == null
           ? null
           : DateTime.parse(json['rangeEndDay'] as String),
-      pageState: $enumDecodeNullable(_$PageStateEnumMap, json['pageState']) ??
-          GeneratePageState.start,
+      pageState:
+          $enumDecodeNullable(_$GeneratePageStateEnumMap, json['pageState']) ??
+              GeneratePageState.start,
     );
 
 Map<String, dynamic> _$$GenerateMenuStateImplToJson(
@@ -26,10 +27,10 @@ Map<String, dynamic> _$$GenerateMenuStateImplToJson(
       'isLoading': instance.isLoading,
       'rangeStartDay': instance.rangeStartDay?.toIso8601String(),
       'rangeEndDay': instance.rangeEndDay?.toIso8601String(),
-      'pageState': _$PageStateEnumMap[instance.pageState]!,
+      'pageState': _$GeneratePageStateEnumMap[instance.pageState]!,
     };
 
-const _$PageStateEnumMap = {
+const _$GeneratePageStateEnumMap = {
   GeneratePageState.start: 'start',
   GeneratePageState.end: 'end',
   GeneratePageState.generate: 'generate',
