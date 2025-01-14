@@ -30,11 +30,11 @@ final goRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/recipeDetailPage/:recipeId',
-      pageBuilder: (context, state) {
-        final recipeId = state.pathParameters['recipeId'];
+      path: '/recipeDetailPage',
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        final recipeID = state.uri.queryParameters['recipeID']!;
         return CustomTransitionPage(
-          child: RecipeDetailPage(recipeID: recipeId!),
+          child: RecipeDetailPage(recipeID: recipeID),
           transitionsBuilder: TransitionUtil.buildWhiteOutTransition,
           transitionDuration: const Duration(seconds: 1),
           reverseTransitionDuration: const Duration(seconds: 1),

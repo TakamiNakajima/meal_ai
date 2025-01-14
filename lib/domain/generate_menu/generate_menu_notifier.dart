@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_ai/common/enum/generate_page_state.dart';
 import 'package:meal_ai/domain/generate_menu/generate_menu_state.dart';
 
-final generateMenuProvider = StateNotifierProvider<GenerateMenuNotifier, GenerateMenuState>(
+final generateMenuProvider = StateNotifierProvider.autoDispose<GenerateMenuNotifier, GenerateMenuState>(
       (ref) => GenerateMenuNotifier(),
 );
 

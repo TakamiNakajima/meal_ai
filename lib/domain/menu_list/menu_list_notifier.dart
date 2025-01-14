@@ -4,7 +4,7 @@ import 'package:meal_ai/domain/menu_list/menu_list_state.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
-final menuListProvider = StateNotifierProvider<MenuListNotifier, MenuListState>(
+final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, MenuListState>(
   (ref) => MenuListNotifier(
     recipeRepository: RecipeRepository(
         fireStoreService: FireStoreService(

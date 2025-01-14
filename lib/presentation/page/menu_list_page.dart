@@ -37,7 +37,7 @@ class MenuListPage extends ConsumerWidget {
             return InkWell(
               onTap: () {
                 HapticFeedback.lightImpact();
-                context.push('/recipeDetailPage/${recipe.id}');
+                context.push('/recipeDetailPage?recipeID=${recipe.id}');
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
