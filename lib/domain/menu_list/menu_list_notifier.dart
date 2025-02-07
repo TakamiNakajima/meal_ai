@@ -1,16 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meal_ai/domain/menu_list/menu_list_service.dart';
 import 'package:meal_ai/domain/menu_list/menu_list_state.dart';
-import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
-import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, MenuListState>(
-  (ref) => MenuListNotifier(
-    recipeRepository: RecipeRepository(
-        fireStoreService: FireStoreService(
-      fireStore: FirebaseFirestore.instance,
-    )),
-  ),
+  (ref) => MenuListNotifier(menuListService: ref.read(menuListService)),
 );
 
 ///
@@ -18,13 +11,13 @@ final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, Men
 ///
 class MenuListNotifier extends StateNotifier<MenuListState> {
   MenuListNotifier({
-    required RecipeRepository recipeRepository,
-  })  : _recipeRepository = recipeRepository,
+    required MenuListService menuListService,
+  })  : _menuListService = menuListService,
         super(const MenuListState()) {
     init();
   }
 
-  final RecipeRepository _recipeRepository;
+  final MenuListService _menuListService;
 
   /// 初期処理
   Future<void> init() async {
@@ -33,7 +26,7 @@ class MenuListNotifier extends StateNotifier<MenuListState> {
         isLoading: true,
       );
 
-      final recipes = await _recipeRepository.fetchRecipeList();
+      final recipes = await _menuListService.fetchRecipeList();
 
       state = state.copyWith(
         isLoading: false,

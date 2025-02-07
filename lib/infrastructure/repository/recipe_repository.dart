@@ -1,12 +1,22 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meal_ai/infrastructure/data_source/firestore_data_source.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
-import 'package:meal_ai/infrastructure/service/firestore_service.dart';
+
+final recipeRepository = Provider(
+      (ref) => RecipeRepository(fireStoreDataSource: FireStoreDataSource()),
+);
 
 class RecipeRepository {
-  RecipeRepository({
-    required FireStoreService fireStoreService,
-  }) : _fireStoreService = fireStoreService;
+  static RecipeRepository? _instance;
 
-  final FireStoreService _fireStoreService;
+  final FireStoreDataSource _fireStoreDataSource;
+
+  RecipeRepository._internal({required FireStoreDataSource fireStoreDataSource})
+      : _fireStoreDataSource = fireStoreDataSource;
+
+  factory RecipeRepository({required FireStoreDataSource fireStoreDataSource}) {
+    return _instance ??= RecipeRepository._internal(fireStoreDataSource: fireStoreDataSource);
+  }
 
   Future<void> addRecipe(Recipe recipe) async {
     try {
@@ -23,7 +33,7 @@ class RecipeRepository {
         "allergies": recipe.allergies,
         "tags": recipe.tags,
       };
-      await _fireStoreService.addData(
+      await _fireStoreDataSource.addData(
         collection: 'recipes',
         documentId: recipe.id,
         data: mapData,
@@ -36,18 +46,16 @@ class RecipeRepository {
 
   Future<Recipe> fetchRecipe(String recipeID) async {
     try {
-      final recipe = await _fireStoreService.fetchRecipe(recipeID);
-      return recipe;
+      return await _fireStoreDataSource.fetchRecipe(recipeID);
     } catch (e) {
-      print('Failed to fetch recipes: $e');
+      print('Failed to fetch recipe: $e');
       rethrow;
     }
   }
 
   Future<List<Recipe>> fetchRecipeList() async {
     try {
-      final recipes = await _fireStoreService.fetchRecipeList();
-      return recipes;
+      return await _fireStoreDataSource.fetchRecipeList();
     } catch (e) {
       print('Failed to fetch recipes: $e');
       rethrow;
