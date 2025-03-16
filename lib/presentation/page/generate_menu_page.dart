@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_ai/common/enum/generate_page_state.dart';
 import 'package:meal_ai/domain/generate_menu/generate_menu_notifier.dart';
+import 'package:meal_ai/presentation/component/primary_button.dart';
 import 'package:meal_ai/presentation/style/color.dart';
-import 'package:meal_ai/presentation/widget/primary_button.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class GenerateMenuPage extends ConsumerStatefulWidget {
