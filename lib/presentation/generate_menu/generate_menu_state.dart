@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:meal_ai/common/enum/generate_page_state.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_page_type.dart';
 
 part 'generate_menu_state.freezed.dart';
 part 'generate_menu_state.g.dart';
@@ -24,7 +24,7 @@ class GenerateMenuState with _$GenerateMenuState {
     @Default(false) bool isLoading,
     DateTime? rangeStartDay,
     DateTime? rangeEndDay,
-    @Default(GeneratePageState.start) GeneratePageState pageState,
+    @Default(GeneratePageType.start) GeneratePageType pageState,
   }) = _GenerateMenuState;
 
   factory GenerateMenuState.fromJson(Map<String, dynamic> json) =>

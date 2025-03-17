@@ -1,4 +1,4 @@
-enum GeneratePageState {
+enum GeneratePageType {
   /// 開始日選択画面
   start,
 

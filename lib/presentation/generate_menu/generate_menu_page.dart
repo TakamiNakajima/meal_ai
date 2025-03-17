@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meal_ai/common/enum/generate_page_state.dart';
-import 'package:meal_ai/domain/generate_menu/generate_menu_notifier.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_page_type.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_menu_notifier.dart';
 import 'package:meal_ai/presentation/component/primary_button.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -39,8 +39,8 @@ class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
         ],
       ),
       body: SafeArea(
-        child: (homePageProvider.pageState == GeneratePageState.start ||
-                homePageProvider.pageState == GeneratePageState.end)
+        child: (homePageProvider.pageState == GeneratePageType.start ||
+                homePageProvider.pageState == GeneratePageType.end)
 
             /// 期間選択画面
             ? Stack(
@@ -48,7 +48,7 @@ class _GenerateMenuPageState extends ConsumerState<GenerateMenuPage> {
                   Column(
                     children: [
                       const SizedBox(height: 40),
-                      Text((homePageProvider.pageState == GeneratePageState.start)
+                      Text((homePageProvider.pageState == GeneratePageType.start)
                           ? "開始日を選択してください"
                           : "終了日を選択してください"),
                       const SizedBox(height: 20),

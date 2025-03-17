@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/common/enum/generate_page_state.dart';
-import 'package:meal_ai/domain/generate_menu/generate_menu_state.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_page_type.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_menu_state.dart';
 
 final generateMenuProvider = StateNotifierProvider.autoDispose<GenerateMenuNotifier, GenerateMenuState>(
       (ref) => GenerateMenuNotifier(),
@@ -18,10 +18,10 @@ class GenerateMenuNotifier extends StateNotifier<GenerateMenuState> {
   Future<void> init() async {}
 
   void onSelectDate(DateTime? start, DateTime? end) {
-    if (state.pageState == GeneratePageState.start) {
-      state = state.copyWith(pageState: GeneratePageState.end, rangeStartDay: start);
-    } else if (state.pageState == GeneratePageState.end) {
-      state = state.copyWith(pageState: GeneratePageState.generate, rangeEndDay: end);
+    if (state.pageState == GeneratePageType.start) {
+      state = state.copyWith(pageState: GeneratePageType.end, rangeStartDay: start);
+    } else if (state.pageState == GeneratePageType.end) {
+      state = state.copyWith(pageState: GeneratePageType.generate, rangeEndDay: end);
     }
   }
 

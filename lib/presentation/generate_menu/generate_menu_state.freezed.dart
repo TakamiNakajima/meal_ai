@@ -23,7 +23,7 @@ mixin _$GenerateMenuState {
   bool get isLoading => throw _privateConstructorUsedError;
   DateTime? get rangeStartDay => throw _privateConstructorUsedError;
   DateTime? get rangeEndDay => throw _privateConstructorUsedError;
-  GeneratePageState get pageState => throw _privateConstructorUsedError;
+  GeneratePageType get pageState => throw _privateConstructorUsedError;
 
   /// Serializes this GenerateMenuState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +45,7 @@ abstract class $GenerateMenuStateCopyWith<$Res> {
       {bool isLoading,
       DateTime? rangeStartDay,
       DateTime? rangeEndDay,
-      GeneratePageState pageState});
+      GeneratePageType pageState});
 }
 
 /// @nodoc
@@ -84,7 +84,7 @@ class _$GenerateMenuStateCopyWithImpl<$Res, $Val extends GenerateMenuState>
       pageState: null == pageState
           ? _value.pageState
           : pageState // ignore: cast_nullable_to_non_nullable
-              as GeneratePageState,
+              as GeneratePageType,
     ) as $Val);
   }
 }
@@ -101,7 +101,7 @@ abstract class _$$GenerateMenuStateImplCopyWith<$Res>
       {bool isLoading,
       DateTime? rangeStartDay,
       DateTime? rangeEndDay,
-      GeneratePageState pageState});
+      GeneratePageType pageState});
 }
 
 /// @nodoc
@@ -138,7 +138,7 @@ class __$$GenerateMenuStateImplCopyWithImpl<$Res>
       pageState: null == pageState
           ? _value.pageState
           : pageState // ignore: cast_nullable_to_non_nullable
-              as GeneratePageState,
+              as GeneratePageType,
     ));
   }
 }
@@ -150,7 +150,7 @@ class _$GenerateMenuStateImpl implements _GenerateMenuState {
       {this.isLoading = false,
       this.rangeStartDay,
       this.rangeEndDay,
-      this.pageState = GeneratePageState.start});
+      this.pageState = GeneratePageType.start});
 
   factory _$GenerateMenuStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$GenerateMenuStateImplFromJson(json);
@@ -164,7 +164,7 @@ class _$GenerateMenuStateImpl implements _GenerateMenuState {
   final DateTime? rangeEndDay;
   @override
   @JsonKey()
-  final GeneratePageState pageState;
+  final GeneratePageType pageState;
 
   @override
   String toString() {
@@ -213,7 +213,7 @@ abstract class _GenerateMenuState implements GenerateMenuState {
       {final bool isLoading,
       final DateTime? rangeStartDay,
       final DateTime? rangeEndDay,
-      final GeneratePageState pageState}) = _$GenerateMenuStateImpl;
+      final GeneratePageType pageState}) = _$GenerateMenuStateImpl;
 
   factory _GenerateMenuState.fromJson(Map<String, dynamic> json) =
       _$GenerateMenuStateImpl.fromJson;
@@ -225,7 +225,7 @@ abstract class _GenerateMenuState implements GenerateMenuState {
   @override
   DateTime? get rangeEndDay;
   @override
-  GeneratePageState get pageState;
+  GeneratePageType get pageState;
 
   /// Create a copy of GenerateMenuState
   /// with the given fields replaced by the non-null parameter values.

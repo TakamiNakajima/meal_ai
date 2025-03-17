@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/recipe_detail/recipe_detail_state.dart';
+import 'package:meal_ai/presentation/recipe_detail/recipe_detail_state.dart';
 import 'package:meal_ai/infrastructure/data_source/firestore_data_source.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 

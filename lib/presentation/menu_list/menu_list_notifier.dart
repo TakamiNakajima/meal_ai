@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/menu_list/menu_list_service.dart';
-import 'package:meal_ai/domain/menu_list/menu_list_state.dart';
+import 'package:meal_ai/domain/menu_list/menu_list_use_case.dart';
+import 'package:meal_ai/presentation/menu_list/menu_list_state.dart';
 
 final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, MenuListState>(
-  (ref) => MenuListNotifier(menuListService: ref.read(menuListService)),
+  (ref) => MenuListNotifier(menuListService: ref.read(menuListUseCase)),
 );
 
 ///
@@ -11,13 +11,13 @@ final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, Men
 ///
 class MenuListNotifier extends StateNotifier<MenuListState> {
   MenuListNotifier({
-    required MenuListService menuListService,
+    required MenuListUseCase menuListService,
   })  : _menuListService = menuListService,
         super(const MenuListState()) {
     init();
   }
 
-  final MenuListService _menuListService;
+  final MenuListUseCase _menuListService;
 
   /// 初期処理
   Future<void> init() async {

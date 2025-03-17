@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_ai/presentation/util/transition_util.dart';
 import 'package:meal_ai/main.dart';
-import 'package:meal_ai/presentation/page/generate_menu_page.dart';
-import 'package:meal_ai/presentation/page/recipe_detail_page.dart';
+import 'package:meal_ai/presentation/generate_menu/generate_menu_page.dart';
+import 'package:meal_ai/presentation/recipe_detail/recipe_detail_page.dart';
 
 final goRouter = GoRouter(
   initialLocation: '/',

@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
-final menuListService =
-    Provider.autoDispose((ref) => MenuListService(recipeRepository: ref.read(recipeRepository)));
+final menuListUseCase =
+    Provider.autoDispose((ref) => MenuListUseCase(recipeRepository: ref.read(recipeRepository)));
 
-class MenuListService {
-  MenuListService({
+class MenuListUseCase {
+  MenuListUseCase({
     required RecipeRepository recipeRepository,
   }) : _recipeRepository = recipeRepository;
 

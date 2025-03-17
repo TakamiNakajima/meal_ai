@@ -7,10 +7,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:meal_ai/firebase_options.dart';
 import 'package:meal_ai/presentation/style/color.dart';
 import 'package:meal_ai/presentation/util/screen_util.dart';
-import 'package:meal_ai/presentation/page/shopping_page.dart';
-import 'package:meal_ai/presentation/page/home_page.dart';
-import 'package:meal_ai/presentation/page/menu_list_page.dart';
-import 'package:meal_ai/presentation/page/setting_page.dart';
+import 'package:meal_ai/presentation/shopping/shopping_page.dart';
+import 'package:meal_ai/presentation/home/home_page.dart';
+import 'package:meal_ai/presentation/menu_list/menu_list_page.dart';
+import 'package:meal_ai/presentation/setting/setting_page.dart';
 import 'package:meal_ai/presentation/util/router.dart';
 
 void main() async {
