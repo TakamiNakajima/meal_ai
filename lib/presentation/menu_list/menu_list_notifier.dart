@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/domain/menu_list/menu_list_use_case.dart';
+import 'package:meal_ai/domain/menu_list/menu_list_usecase.dart';
 import 'package:meal_ai/presentation/menu_list/menu_list_state.dart';
 
 final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, MenuListState>(
