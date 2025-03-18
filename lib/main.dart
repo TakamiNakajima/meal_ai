@@ -54,7 +54,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -63,6 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
     const MenuListPage(),
     const SettingPage(),
   ];
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    /// ここでBG→FG時の歩数取得処理を行う
+    ///
+  }
 
   @override
   Widget build(BuildContext context) {
