@@ -1,21 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal_ai/infrastructure/data_source/firestore_data_source.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
+import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 
 final recipeRepository = Provider(
-      (ref) => RecipeRepository(fireStoreDataSource: FireStoreDataSource()),
+      (ref) => RecipeRepository(fireStoreService: FireStoreService()),
 );
 
 class RecipeRepository {
   static RecipeRepository? _instance;
 
-  final FireStoreDataSource _fireStoreDataSource;
+  final FireStoreService _fireStoreService;
 
-  RecipeRepository._internal({required FireStoreDataSource fireStoreDataSource})
-      : _fireStoreDataSource = fireStoreDataSource;
+  RecipeRepository._internal({required FireStoreService fireStoreService})
+      : _fireStoreService = fireStoreService;
 
-  factory RecipeRepository({required FireStoreDataSource fireStoreDataSource}) {
-    return _instance ??= RecipeRepository._internal(fireStoreDataSource: fireStoreDataSource);
+  factory RecipeRepository({required FireStoreService fireStoreService}) {
+    return _instance ??= RecipeRepository._internal(fireStoreService: fireStoreService);
   }
 
   Future<void> addRecipe(Recipe recipe) async {
@@ -33,7 +33,7 @@ class RecipeRepository {
         "allergies": recipe.allergies,
         "tags": recipe.tags,
       };
-      await _fireStoreDataSource.addData(
+      await _fireStoreService.addData(
         collection: 'recipes',
         documentId: recipe.id,
         data: mapData,
@@ -46,7 +46,7 @@ class RecipeRepository {
 
   Future<Recipe> fetchRecipe(String recipeID) async {
     try {
-      return await _fireStoreDataSource.fetchRecipe(recipeID);
+      return await _fireStoreService.fetchRecipe(recipeID);
     } catch (e) {
       print('Failed to fetch recipe: $e');
       rethrow;
@@ -55,7 +55,7 @@ class RecipeRepository {
 
   Future<List<Recipe>> fetchRecipeList() async {
     try {
-      return await _fireStoreDataSource.fetchRecipeList();
+      return await _fireStoreService.fetchRecipeList();
     } catch (e) {
       print('Failed to fetch recipes: $e');
       rethrow;

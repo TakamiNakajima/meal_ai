@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 
-class FireStoreDataSource {
-  static final FireStoreDataSource _instance = FireStoreDataSource._internal();
+class FireStoreService {
+  static final FireStoreService _instance = FireStoreService._internal();
 
-  FireStoreDataSource._internal();
+  FireStoreService._internal();
 
-  factory FireStoreDataSource() {
+  factory FireStoreService() {
     return _instance;
   }
 

@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meal_ai/infrastructure/service/firestore_service.dart';
 import 'package:meal_ai/presentation/recipe_detail/recipe_detail_state.dart';
-import 'package:meal_ai/infrastructure/data_source/firestore_data_source.dart';
 import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 
 final recipeDetailProvider =
     StateNotifierProvider.autoDispose.family<RecipeDetailNotifier, RecipeDetailState, String>(
   (ref, recipeID) => RecipeDetailNotifier(
-    recipeRepository: RecipeRepository(fireStoreDataSource: FireStoreDataSource()),
+    recipeRepository: RecipeRepository(fireStoreService: FireStoreService()),
     recipeID: recipeID,
   ),
 );
