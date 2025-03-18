@@ -56,8 +56,6 @@ class HealthRepository {
   Future<void> saveToFireStore(List<Map<String, dynamic>> healthData, String userID) async {
     if (healthData.isEmpty) return;
 
-    for (var value in healthData) {
-      await _fireStoreService.addData(collection: 'steps', documentId: userID, data: value);
-    }
+    await _fireStoreService.setAllHealthData(healthDataList: healthData, userId: userID);
   }
 }
