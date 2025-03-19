@@ -26,7 +26,7 @@ class HealthCareUseCase {
       HealthDataType.DISTANCE_WALKING_RUNNING,
     ];
 
-    // 最終更新時刻を取得
+    // 最終更新時刻を取得する
     final lastUpdatedAt = await _healthRepository.getLastUpdatedAt(userID);
 
     // ヘルスケアから歩数を取得する
