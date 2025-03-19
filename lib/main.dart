@@ -13,6 +13,8 @@ import 'package:meal_ai/presentation/menu_list/menu_list_page.dart';
 import 'package:meal_ai/presentation/setting/setting_page.dart';
 import 'package:meal_ai/presentation/util/router.dart';
 
+import 'domain/healthcare/healthcare_usecase.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
@@ -47,14 +49,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
+class _MyHomePageState extends ConsumerState<MyHomePage> with WidgetsBindingObserver {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -65,10 +67,28 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    /// ここでBG→FG時の歩数取得処理を行う
-    ///
+    if (state == AppLifecycleState.resumed) {
+      // ここでBG→FG時の歩数取得処理を行う
+      final stepUseCase = ref.watch(healthCareUseCase);
+      stepUseCase.fetchStepFromHealthcare(
+        DateTime(2025, 03, 19, 00, 00, 00),
+        DateTime(2025, 03, 19, 23, 59, 59),
+        'v2P8YWVkwhfHYmQREqaJ',
+      );
+    }
   }
 
   @override

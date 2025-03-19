@@ -49,5 +49,9 @@
     <string>カメラを使用します</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>フォトライブラリを使用します</string>
+    <key>NSHealthShareUsageDescription</key>
+    <string>このアプリはヘルスケアアプリを使用します</string>
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>このアプリはヘルスケアアプリを使用します</string>
 </dict>
 </plist>

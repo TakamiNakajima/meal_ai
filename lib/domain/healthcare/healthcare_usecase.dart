@@ -26,10 +26,13 @@ class HealthCareUseCase {
       HealthDataType.DISTANCE_WALKING_RUNNING,
     ];
 
+    // 最終更新時刻を取得
+    final lastUpdatedAt = await _healthRepository.getLastUpdatedAt(userID);
+
     // ヘルスケアから歩数を取得する
     final healthData = await _healthRepository.getHealthDataFromHealthcare(
-      startDate,
-      endDate,
+      lastUpdatedAt,
+      DateTime.now(),
       requestDataTypes,
     );
 
@@ -62,7 +65,7 @@ class HealthCareUseCase {
     return filteredList;
   }
 
-  /// 端末から取得したList<HealthData>をList<Map>に変換する
+  /// List<Map>に変換する
   List<Map<String, dynamic>> _convertToMap(List<HealthDataPoint> list) {
     final dateList = [];
     for (final data in list) {

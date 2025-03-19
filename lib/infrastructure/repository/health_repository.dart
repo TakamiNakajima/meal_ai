@@ -54,4 +54,9 @@ class HealthRepository {
 
     await _fireStoreService.setAllHealthData(healthDataList: healthData, userId: userID);
   }
+
+  /// 最終更新時刻を取得する
+  Future<DateTime> getLastUpdatedAt(String userID) async {
+    return await _fireStoreService.getLastUpdatedAt(userId: userID);
+  }
 }

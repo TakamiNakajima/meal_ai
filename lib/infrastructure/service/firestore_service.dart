@@ -63,10 +63,18 @@ class FireStoreService {
 
   /// [healthData]コレクションの最終更新時刻を更新する
   Future<void> _setLastUpdatedAt({required String userId}) async {
-    await _fireStore.collection('healthData').doc(userId).update(
+    await _fireStore.collection('healthData').doc(userId).set(
       {
         'lastUpdatedAt': DateTime.now(),
       },
     );
+  }
+
+  /// [healthData]コレクションの最終更新時刻を取得する
+  Future<DateTime> getLastUpdatedAt({required String userId}) async {
+    final querySnapshot = await _fireStore.collection('healthData').doc(userId).get();
+    final lastUpdatedAt = (querySnapshot.data()!['lastUpdatedAt'] as Timestamp).toDate();
+
+    return lastUpdatedAt;
   }
 }
