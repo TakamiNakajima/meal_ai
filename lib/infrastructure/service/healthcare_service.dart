@@ -1,15 +1,7 @@
 import 'package:health/health.dart';
 
 class HealthCareService {
-  static final HealthCareService _instance = HealthCareService._internal();
-
-  HealthCareService._internal();
-
-  factory HealthCareService() {
-    return _instance;
-  }
-
-  static final HealthFactory health = HealthFactory();
+  final HealthFactory health = HealthFactory();
 
   Future<List<HealthDataPoint>> getHealthDataFromDevice(
     DateTime startDate,

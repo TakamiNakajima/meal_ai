@@ -3,14 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 
 class FireStoreService {
-  static final FireStoreService _instance = FireStoreService._internal();
-
-  FireStoreService._internal();
-
-  factory FireStoreService() {
-    return _instance;
-  }
-
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
   Future<void> addData({
@@ -60,12 +52,7 @@ class FireStoreService {
     required String userId,
     required Map<String, dynamic> dataMap,
   }) async {
-    await _fireStore
-        .collection('healthData')
-        .doc(userId)
-        .collection('steps')
-        .doc(dataMap['dateTime'])
-        .set({
+    await _fireStore.collection('healthData').doc(userId).collection('steps').doc(dataMap['dateTime']).set({
       'dataList': dataMap['dataList'],
       'dateTime': dataMap['dateTime'],
     });
