@@ -42,6 +42,9 @@ class FireStoreService {
         );
       }
       await Future.wait(futures);
+
+      // 最終更新時刻を更新
+      await _setLastUpdatedAt(userId: userId);
     } catch (e) {
       debugPrint('_setAllHealthDataエラー: $e');
     }
@@ -56,5 +59,14 @@ class FireStoreService {
       'dataList': dataMap['dataList'],
       'dateTime': dataMap['dateTime'],
     });
+  }
+
+  /// [healthData]コレクションの最終更新時刻を更新する
+  Future<void> _setLastUpdatedAt({required String userId}) async {
+    await _fireStore.collection('healthData').doc(userId).update(
+      {
+        'lastUpdatedAt': DateTime.now(),
+      },
+    );
   }
 }

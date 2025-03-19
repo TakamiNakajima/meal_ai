@@ -15,7 +15,7 @@ class HealthCareUseCase {
 
   final HealthRepository _healthRepository;
 
-  /// 初期処理
+  /// ヘルスケアから歩数を取得する処理
   Future<void> fetchStepFromHealthcare(
     DateTime startDate,
     DateTime endDate,
@@ -33,11 +33,8 @@ class HealthCareUseCase {
       requestDataTypes,
     );
 
-    // 重複データ除外
-    final healthDataRemoveDuplicates = HealthFactory.removeDuplicates(healthData);
-
-    // 歩数データを単一記録端末でフィルタリング(複数端末で記録している場合にデータが重複するため)
-    final filteredHealthData = _filterStepsData(healthDataRemoveDuplicates);
+    // 一つの記録端末でフィルタリング
+    final filteredHealthData = _filterStepsData(healthData);
 
     // List<Map>型に変換
     final healthDataList = _convertToMap(filteredHealthData);

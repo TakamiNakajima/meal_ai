@@ -8,11 +8,14 @@ class HealthCareService {
     DateTime endDate,
     List<HealthDataType> requestDataTypes,
   ) async {
-    return await health.getHealthDataFromTypes(
+    final healthData = await health.getHealthDataFromTypes(
       startDate,
       endDate,
       requestDataTypes,
     );
+
+    // 重複データを除外したリストを返す
+    return HealthFactory.removeDuplicates(healthData);
   }
 
   Future<bool?> hasPermissions(List<HealthDataType> requestDataTypes) async {
