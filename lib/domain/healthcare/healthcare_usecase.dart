@@ -2,8 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:health/health.dart';
 import 'package:meal_ai/infrastructure/repository/health_repository.dart';
 
-final healthCareUseCase =
-    Provider.autoDispose((ref) => HealthCareUseCase(healthRepository: ref.read(healthRepository)));
+final healthCareUseCase = Provider.autoDispose(
+  (ref) => HealthCareUseCase(
+    healthRepository: ref.read(healthRepository),
+  ),
+);
 
 class HealthCareUseCase {
   HealthCareUseCase({
@@ -44,7 +47,7 @@ class HealthCareUseCase {
   }
 
   /// 取得した歩数データが複数のソース(記録端末)から記録されている場合、一つのソースでフィルタリングする
-  /// 複数端末で記録した歩数を合計すると倍になってしまうため
+  /// 複数端末で記録した歩数を合計すると倍になってしまうための対処
   static List<HealthDataPoint> _filterStepsData(List<HealthDataPoint> data) {
     List<HealthDataPoint> filteredList = [];
 

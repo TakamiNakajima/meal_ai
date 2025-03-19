@@ -14,14 +14,13 @@ final healthRepository = Provider(
 
 class HealthRepository {
   static HealthRepository? _instance;
-
   final HealthCareService _healthcareService;
-
   final FireStoreService _fireStoreService;
 
-  HealthRepository._internal(
-      {required HealthCareService healthcareService, required FireStoreService fireStoreService})
-      : _healthcareService = healthcareService,
+  HealthRepository._internal({
+    required HealthCareService healthcareService,
+    required FireStoreService fireStoreService,
+  })  : _healthcareService = healthcareService,
         _fireStoreService = fireStoreService;
 
   factory HealthRepository({
@@ -34,7 +33,7 @@ class HealthRepository {
     );
   }
 
-  /// ヘルスケアアプリからHealthデータを取得する
+  /// Healthデータを取得する
   Future<List<HealthDataPoint>> getHealthDataFromHealthcare(
     DateTime startDate,
     DateTime endDate,
@@ -42,17 +41,14 @@ class HealthRepository {
   ) async {
     if (Platform.isAndroid) return [];
 
-    bool accessWasGranted = false;
-    // Healthデータのアクセス許可リクエスト
-    accessWasGranted = await _healthcareService.requestAuthorization(requestDataTypes);
-
+    final bool accessWasGranted = await _healthcareService.requestAuthorization(requestDataTypes);
     if (accessWasGranted) {
-      // 歩数データ取得
-      return await _healthcareService.getHealthDataFromDevice(startDate, endDate, requestDataTypes);
+      return await _healthcareService.getHealthDataFromTypes(startDate, endDate, requestDataTypes);
     }
     return [];
   }
 
+  /// Healthデータを保存する
   Future<void> saveToFireStore(List<Map<String, dynamic>> healthData, String userID) async {
     if (healthData.isEmpty) return;
 

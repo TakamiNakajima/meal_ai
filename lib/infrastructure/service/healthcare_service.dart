@@ -3,7 +3,7 @@ import 'package:health/health.dart';
 class HealthCareService {
   final HealthFactory health = HealthFactory();
 
-  Future<List<HealthDataPoint>> getHealthDataFromDevice(
+  Future<List<HealthDataPoint>> getHealthDataFromTypes(
     DateTime startDate,
     DateTime endDate,
     List<HealthDataType> requestDataTypes,
@@ -15,7 +15,7 @@ class HealthCareService {
     );
   }
 
-  Future<bool?> hasPermission(List<HealthDataType> requestDataTypes) async {
+  Future<bool?> hasPermissions(List<HealthDataType> requestDataTypes) async {
     return await health.hasPermissions(requestDataTypes);
   }
 
