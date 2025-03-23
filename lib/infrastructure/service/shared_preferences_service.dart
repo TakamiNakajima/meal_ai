@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
-
   Future<List<String>?> getStringList(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getStringList(key);

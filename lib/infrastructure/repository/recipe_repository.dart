@@ -18,32 +18,6 @@ class RecipeRepository {
     return _instance ??= RecipeRepository._internal(fireStoreService: fireStoreService);
   }
 
-  Future<void> addRecipe(Recipe recipe) async {
-    try {
-      final Map<String, dynamic> mapData = {
-        "id": recipe.id,
-        "title": recipe.title,
-        "description": recipe.description,
-        "imageUrl": recipe.imageUrl,
-        "cookingTime": recipe.cookingTime,
-        "calorie": recipe.calorie,
-        "ingredients": recipe.ingredients,
-        "mealType": recipe.mealType,
-        "steps": recipe.steps,
-        "allergies": recipe.allergies,
-        "tags": recipe.tags,
-      };
-      await _fireStoreService.addData(
-        collection: 'recipes',
-        documentId: recipe.id,
-        data: mapData,
-      );
-    } catch (e) {
-      print('Failed to add recipe: $e');
-      rethrow;
-    }
-  }
-
   Future<Recipe> fetchRecipe(String recipeID) async {
     try {
       return await _fireStoreService.fetchRecipe(recipeID);

@@ -18,14 +18,13 @@ class AuthRepository {
   final FirebaseAuthService _firebaseAuthService;
   final FireStoreService _fireStoreService;
 
-  static User? currentUser;
+  User? currentUser;
 
   AuthRepository._internal({
     required SharedPreferencesService sharedPreferencesService,
     required FirebaseAuthService firebaseAuthService,
     required FireStoreService fireStoreService,
-  })
-      : _sharedPreferencesService = sharedPreferencesService,
+  })  : _sharedPreferencesService = sharedPreferencesService,
         _firebaseAuthService = firebaseAuthService,
         _fireStoreService = fireStoreService;
 
@@ -47,16 +46,18 @@ class AuthRepository {
   }
 
   /// ログイン処理
-  Future<void> signIn(String email, String password) async {
+  Future<bool> signIn(String email, String password) async {
     try {
       currentUser = await _firebaseAuthService.signIn(email, password);
       if (currentUser != null && currentUser!.uid.isNotEmpty) {
-        await _fireStoreService.updateLastLoginAt(userId: currentUser!.uid);
+        await _fireStoreService.setLastUpdatedAt(userId: currentUser!.uid, collection: 'users', key: 'lastLoginAt');
         await _sharedPreferencesService.setLogin(email, password);
+        return true;
       }
     } catch (e) {
       print(e);
     }
+    return false;
   }
 
   /// 新規登録処理
@@ -64,7 +65,7 @@ class AuthRepository {
     try {
       currentUser = await _firebaseAuthService.signUp(email, password);
       if (currentUser != null && currentUser!.uid.isNotEmpty) {
-        await _fireStoreService.updateLastLoginAt(userId: currentUser!.uid);
+        await _fireStoreService.setLastUpdatedAt(userId: currentUser!.uid, collection: 'users', key: 'lastLoginAt');
         await _sharedPreferencesService.setLogin(email, password);
       }
     } catch (e) {

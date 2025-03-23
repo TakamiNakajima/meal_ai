@@ -29,7 +29,7 @@ class SplashNotifier extends StateNotifier<SplashState> {
 
   /// 初期処理
   ///
-  /// ローカルにログイン情報があるかどうか
+  /// ローカルにログイン情報がある場合はログイン処理を行う
   Future<void> init() async {
     final loginInfo = await _authRepository.getStringList("loginInfo");
     await Future.delayed(const Duration(seconds: 1));
@@ -38,10 +38,12 @@ class SplashNotifier extends StateNotifier<SplashState> {
         isLoggedIn: false,
       );
     } else {
-      await _authRepository.signIn(loginInfo[0], loginInfo[1]);
-      state = state.copyWith(
-        isLoggedIn: true,
-      );
+      final successFlg = await _authRepository.signIn(loginInfo[0], loginInfo[1]);
+      if (successFlg) {
+        state = state.copyWith(
+          isLoggedIn: true,
+        );
+      }
     }
   }
 }

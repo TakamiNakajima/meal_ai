@@ -5,14 +5,6 @@ import 'package:meal_ai/infrastructure/model/recipe/recipe.dart';
 class FireStoreService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-  Future<void> addData({
-    required String collection,
-    required String documentId,
-    required Map<String, dynamic> data,
-  }) async {
-    await _fireStore.collection(collection).doc(documentId).set(data);
-  }
-
   Future<Recipe> fetchRecipe(String recipeID) async {
     final querySnapshot =
         await _fireStore.collection('recipes').where('id', isEqualTo: recipeID).limit(1).get();
@@ -44,7 +36,7 @@ class FireStoreService {
       await Future.wait(futures);
 
       // 最終更新時刻を更新
-      await _setLastUpdatedAt(userId: userId);
+      await setLastUpdatedAt(userId: userId, collection: 'healthData', key: 'lastUpdatedAt');
     } catch (e) {
       debugPrint('_setAllHealthDataエラー: $e');
     }
@@ -61,15 +53,6 @@ class FireStoreService {
     });
   }
 
-  /// [healthData]コレクションの最終更新時刻を更新する
-  Future<void> _setLastUpdatedAt({required String userId}) async {
-    await _fireStore.collection('healthData').doc(userId).set(
-      {
-        'lastUpdatedAt': DateTime.now(),
-      },
-    );
-  }
-
   /// [healthData]コレクションの最終更新時刻を取得する
   Future<DateTime> getLastUpdatedAt({required String userId}) async {
     final querySnapshot = await _fireStore.collection('healthData').doc(userId).get();
@@ -78,10 +61,14 @@ class FireStoreService {
     return lastUpdatedAt;
   }
 
-  /// 最終ログイン時刻を更新する
-  Future<void> updateLastLoginAt({required String userId}) async {
-    await FirebaseFirestore.instance.collection('users').doc(userId).set({
-      'lastLoginAt': Timestamp.fromDate(DateTime.now()),
+  /// 最終更新時刻を更新する
+  Future<void> setLastUpdatedAt({
+    required String userId,
+    required String collection,
+    required String key,
+  }) async {
+    await FirebaseFirestore.instance.collection(collection).doc(userId).set({
+      key: Timestamp.fromDate(DateTime.now()),
     });
   }
 }
