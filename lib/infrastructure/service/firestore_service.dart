@@ -77,4 +77,11 @@ class FireStoreService {
 
     return lastUpdatedAt;
   }
+
+  /// 最終ログイン時刻を更新する
+  Future<void> updateLastLoginAt({required String userId}) async {
+    await FirebaseFirestore.instance.collection('users').doc(userId).set({
+      'lastLoginAt': Timestamp.fromDate(DateTime.now()),
+    });
+  }
 }

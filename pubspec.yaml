@@ -39,7 +39,9 @@ dependencies:
   firebase_core: ^3.9.0
   cloud_firestore: ^5.6.0
   firebase_storage: ^12.3.7
+  firebase_auth:
   flutter_riverpod: ^2.6.1
+  shared_preferences: ^2.0.5
   image_picker:
   table_calendar:
   intl:
@@ -61,9 +63,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-  build_runner: ^2.4.14
-  freezed: ^2.5.8
-  json_serializable: ^6.9.2
+  build_runner:
+  freezed:
+  json_serializable:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

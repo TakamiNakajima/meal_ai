@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meal_ai/presentation/sign_in/sign_in_page.dart';
+import 'package:meal_ai/presentation/splash/splash_page.dart';
 import 'package:meal_ai/presentation/util/transition_util.dart';
 import 'package:meal_ai/main.dart';
 import 'package:meal_ai/presentation/generate_menu/generate_menu_page.dart';
@@ -10,7 +12,25 @@ final goRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'initial',
+      name: 'splash',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: const SplashPage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/signIn',
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          key: state.pageKey,
+          child: const SignInPage(),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/home',
       pageBuilder: (context, state) {
         return MaterialPage(
           key: state.pageKey,

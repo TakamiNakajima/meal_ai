@@ -41,7 +41,7 @@ mixin _$Recipe {
   /// 材料リスト
   List<Ingredient> get ingredients => throw _privateConstructorUsedError;
 
-  /// 料理タイプ(主菜,副菜,主食,汁物)
+  /// 料理タイプ
   MealType get mealType => throw _privateConstructorUsedError;
 
   /// 調理方法
@@ -310,7 +310,7 @@ class _$RecipeImpl with DiagnosticableTreeMixin implements _Recipe {
     return EqualUnmodifiableListView(_ingredients);
   }
 
-  /// 料理タイプ(主菜,副菜,主食,汁物)
+  /// 料理タイプ
   @override
   final MealType mealType;
 
@@ -470,7 +470,7 @@ abstract class _Recipe implements Recipe {
   @override
   List<Ingredient> get ingredients;
 
-  /// 料理タイプ(主菜,副菜,主食,汁物)
+  /// 料理タイプ
   @override
   MealType get mealType;
 
