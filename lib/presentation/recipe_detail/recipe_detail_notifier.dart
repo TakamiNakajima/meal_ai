@@ -6,7 +6,7 @@ import 'package:meal_ai/infrastructure/repository/recipe_repository.dart';
 final recipeDetailProvider =
     StateNotifierProvider.autoDispose.family<RecipeDetailNotifier, RecipeDetailState, String>(
   (ref, recipeID) => RecipeDetailNotifier(
-    recipeRepository: RecipeRepository(fireStoreService: FireStoreService()),
+    recipeRepository: ref.read(recipeRepository),
     recipeID: recipeID,
   ),
 );

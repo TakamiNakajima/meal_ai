@@ -1,17 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_ai/infrastructure/repository/auth_repository.dart';
-import 'package:meal_ai/infrastructure/service/firebase_auth_service.dart';
-import 'package:meal_ai/infrastructure/service/firestore_service.dart';
-import 'package:meal_ai/infrastructure/service/shared_preferences_service.dart';
 import 'package:meal_ai/presentation/splash/splash_state.dart';
 
 final splashProvider = StateNotifierProvider.autoDispose<SplashNotifier, SplashState>(
   (ref) => SplashNotifier(
-      authRepository: AuthRepository(
-    sharedPreferencesService: SharedPreferencesService(),
-    fireStoreService: FireStoreService(),
-    firebaseAuthService: FirebaseAuthService(),
-  )),
+    authRepository: ref.read(authRepository),
+  ),
 );
 
 ///

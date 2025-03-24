@@ -3,7 +3,9 @@ import 'package:meal_ai/domain/menu_list/menu_list_usecase.dart';
 import 'package:meal_ai/presentation/menu_list/menu_list_state.dart';
 
 final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, MenuListState>(
-  (ref) => MenuListNotifier(menuListUseCase: ref.read(menuListUseCase)),
+  (ref) => MenuListNotifier(
+    menuListUseCase: ref.read(menuListUseCase),
+  ),
 );
 
 ///
@@ -12,7 +14,7 @@ final menuListProvider = StateNotifierProvider.autoDispose<MenuListNotifier, Men
 class MenuListNotifier extends StateNotifier<MenuListState> {
   MenuListNotifier({
     required MenuListUseCase menuListUseCase,
-  }) : _menuListUseCase = menuListUseCase,
+  })  : _menuListUseCase = menuListUseCase,
         super(const MenuListState()) {
     init();
   }

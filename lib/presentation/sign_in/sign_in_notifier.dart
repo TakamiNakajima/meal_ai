@@ -1,17 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_ai/infrastructure/repository/auth_repository.dart';
-import 'package:meal_ai/infrastructure/service/firebase_auth_service.dart';
-import 'package:meal_ai/infrastructure/service/firestore_service.dart';
-import 'package:meal_ai/infrastructure/service/shared_preferences_service.dart';
 import 'package:meal_ai/presentation/sign_in/sign_in_state.dart';
 
 final signInProvider = StateNotifierProvider.autoDispose<SignInNotifier, SignInState>(
   (ref) => SignInNotifier(
-      authRepository: AuthRepository(
-    sharedPreferencesService: SharedPreferencesService(),
-    fireStoreService: FireStoreService(),
-    firebaseAuthService: FirebaseAuthService(),
-  )),
+    authRepository: ref.read(authRepository),
+  ),
 );
 
 ///
