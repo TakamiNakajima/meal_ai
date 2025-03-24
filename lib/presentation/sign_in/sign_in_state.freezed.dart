@@ -21,7 +21,6 @@ SignInState _$SignInStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SignInState {
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get isLoggedIn => throw _privateConstructorUsedError;
 
   /// Serializes this SignInState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +38,7 @@ abstract class $SignInStateCopyWith<$Res> {
           SignInState value, $Res Function(SignInState) then) =
       _$SignInStateCopyWithImpl<$Res, SignInState>;
   @useResult
-  $Res call({bool isLoading, bool isLoggedIn});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -58,16 +57,11 @@ class _$SignInStateCopyWithImpl<$Res, $Val extends SignInState>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isLoggedIn = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isLoggedIn: null == isLoggedIn
-          ? _value.isLoggedIn
-          : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -81,7 +75,7 @@ abstract class _$$SignInStateImplCopyWith<$Res>
       __$$SignInStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, bool isLoggedIn});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -98,16 +92,11 @@ class __$$SignInStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
-    Object? isLoggedIn = null,
   }) {
     return _then(_$SignInStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isLoggedIn: null == isLoggedIn
-          ? _value.isLoggedIn
-          : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -116,7 +105,7 @@ class __$$SignInStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SignInStateImpl implements _SignInState {
-  const _$SignInStateImpl({this.isLoading = false, this.isLoggedIn = false});
+  const _$SignInStateImpl({this.isLoading = false});
 
   factory _$SignInStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignInStateImplFromJson(json);
@@ -124,13 +113,10 @@ class _$SignInStateImpl implements _SignInState {
   @override
   @JsonKey()
   final bool isLoading;
-  @override
-  @JsonKey()
-  final bool isLoggedIn;
 
   @override
   String toString() {
-    return 'SignInState(isLoading: $isLoading, isLoggedIn: $isLoggedIn)';
+    return 'SignInState(isLoading: $isLoading)';
   }
 
   @override
@@ -139,14 +125,12 @@ class _$SignInStateImpl implements _SignInState {
         (other.runtimeType == runtimeType &&
             other is _$SignInStateImpl &&
             (identical(other.isLoading, isLoading) ||
-                other.isLoading == isLoading) &&
-            (identical(other.isLoggedIn, isLoggedIn) ||
-                other.isLoggedIn == isLoggedIn));
+                other.isLoading == isLoading));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isLoggedIn);
+  int get hashCode => Object.hash(runtimeType, isLoading);
 
   /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
@@ -165,16 +149,13 @@ class _$SignInStateImpl implements _SignInState {
 }
 
 abstract class _SignInState implements SignInState {
-  const factory _SignInState({final bool isLoading, final bool isLoggedIn}) =
-      _$SignInStateImpl;
+  const factory _SignInState({final bool isLoading}) = _$SignInStateImpl;
 
   factory _SignInState.fromJson(Map<String, dynamic> json) =
       _$SignInStateImpl.fromJson;
 
   @override
   bool get isLoading;
-  @override
-  bool get isLoggedIn;
 
   /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.

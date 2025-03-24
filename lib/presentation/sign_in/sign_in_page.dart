@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_ai/presentation/sign_in/sign_in_notifier.dart';
-import 'package:meal_ai/presentation/sign_in/sign_in_state.dart';
 
 class SignInPage extends ConsumerStatefulWidget {
   const SignInPage({super.key});
@@ -17,16 +16,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    /// ログイン状態を監視する
-    ref.listen<SignInState>(
-      signInProvider,
-          (previous, next) {
-        if (next.isLoggedIn) {
-          context.go('/home');
-        }
-      },
-    );
 
     final signInPageProvider = ref.watch(signInProvider);
     final signInPageNotifier = ref.read(signInProvider.notifier);
@@ -62,11 +51,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () {
-                signInPageNotifier.signIn(
+              onPressed: () async {
+                final successFlg = await signInPageNotifier.signIn(
                   email: _emailController.text,
                   password: _passwordController.text,
                 );
+
+                if (successFlg) {
+                  context.go('/home');
+                }
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),

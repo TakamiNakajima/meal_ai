@@ -26,26 +26,16 @@ class SignInNotifier extends StateNotifier<SignInState> {
   final AuthRepository _authRepository;
 
   /// ログイン処理
-  Future<void> signIn({
+  Future<bool> signIn({
     required String email,
     required String password,
   }) async {
-    state = state.copyWith(
-      isLoading: true,
-    );
+    state = state.copyWith(isLoading: true);
 
     final successFlg = await _authRepository.signIn(email, password);
 
-    if (successFlg) {
-      state = state.copyWith(
-        isLoading: false,
-        isLoggedIn: true,
-      );
-    } else {
-      state = state.copyWith(
-        isLoading: false,
-      );
-    }
+    state = state.copyWith(isLoading: false);
 
+    return successFlg;
   }
 }

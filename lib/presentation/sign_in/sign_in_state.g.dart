@@ -9,11 +9,9 @@ part of 'sign_in_state.dart';
 _$SignInStateImpl _$$SignInStateImplFromJson(Map<String, dynamic> json) =>
     _$SignInStateImpl(
       isLoading: json['isLoading'] as bool? ?? false,
-      isLoggedIn: json['isLoggedIn'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$SignInStateImplToJson(_$SignInStateImpl instance) =>
     <String, dynamic>{
       'isLoading': instance.isLoading,
-      'isLoggedIn': instance.isLoggedIn,
     };
